@@ -2,15 +2,7 @@ package demo.pxportfolio.realestateagency.auth.role;
 
 import demo.pxportfolio.realestateagency.auth.permission.Permission;
 import demo.pxportfolio.realestateagency.auth.user.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +15,23 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "roles")
+@Table(
+        name = "roles",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "role_title_uq",
+                        columnNames = {
+                                "title"
+                        }
+                ),
+                @UniqueConstraint(
+                        name = "role_machine_name_uq",
+                        columnNames = {
+                                "machine_name"
+                        }
+                )
+        }
+)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -35,6 +43,12 @@ public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "title", length = 100, nullable = false)
+    private String title;
+
+    @Column(name = "machine_name", length = 50, nullable = false)
+    private String machineName;
 
     @ManyToMany
     @JoinTable(

@@ -1,40 +1,53 @@
 package demo.pxportfolio.realestateagency.auth.user;
 
+import demo.pxportfolio.realestateagency.auth.permission.Permission;
 import demo.pxportfolio.realestateagency.auth.role.Role;
 import demo.pxportfolio.realestateagency.property.Property;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.Hibernate;
+import jakarta.persistence.*;
 import java.io.Serializable;
-import java.util.Objects;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(name = "users")
+@Table(
+        name = "users",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "user_name_uq",
+                        columnNames = "username"
+                ),
+                @UniqueConstraint(
+                        name = "user_email_uq",
+                        columnNames = "email"
+                )
+        }
+)
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
-public class User implements Serializable {
+@Data
+public class User implements Serializable, UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "username", length = 100, nullable = false)
+    private String username;
+
+    @Column(name = "password", length = 500, nullable = false)
+    private String password;
+
+    @Column(name = "email", length = 100, nullable = false)
+    private String email;
+
+    @Column(name = "active")
+    private Boolean active = true;
 
     @ManyToMany
     @JoinTable(
@@ -77,15 +90,32 @@ public class User implements Serializable {
     private Set<Property> favourites;
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        User user = (User) o;
-        return id != null && Objects.equals(id, user.id);
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<Permission> permissions = new HashSet<>();
+
+        for (Role role : roles) {
+            permissions.addAll(role.getPermissions());
+        }
+        return permissions;
     }
 
     @Override
-    public int hashCode() {
-        return getClass().hashCode();
+    public boolean isAccountNonExpired() {
+        return this.active;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return this.active;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return this.active;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.active;
     }
 }
