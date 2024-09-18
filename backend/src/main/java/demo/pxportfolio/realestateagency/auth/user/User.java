@@ -1,6 +1,7 @@
 package demo.pxportfolio.realestateagency.auth.user;
 
 import demo.pxportfolio.realestateagency.auth.role.Role;
+import demo.pxportfolio.realestateagency.property.Property;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
@@ -54,6 +55,26 @@ public class User implements Serializable {
             )
     )
     private Set<Role> roles;
+
+    @ManyToMany
+    @JoinTable(
+            name = "users_favourite_properties",
+            joinColumns = @JoinColumn(
+                    name = "user_id",
+                    foreignKey = @ForeignKey(
+                            name = "users_favourite_properties_to_users_fk"
+                    )
+
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "property_id",
+                    foreignKey = @ForeignKey(
+                            name = "users_favourite_properties_to_properties_fk"
+                    )
+
+            )
+    )
+    private Set<Property> favourites;
 
     @Override
     public boolean equals(Object o) {
