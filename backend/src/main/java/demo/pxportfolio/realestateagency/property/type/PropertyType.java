@@ -1,15 +1,7 @@
 package demo.pxportfolio.realestateagency.property.type;
 
 import demo.pxportfolio.realestateagency.property.attribute.Attribute;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +26,9 @@ public class PropertyType implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "type", length = 200, nullable = false)
+    private String type;
 
     @ManyToMany
     @JoinTable(
