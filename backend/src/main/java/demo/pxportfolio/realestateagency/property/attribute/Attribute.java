@@ -8,10 +8,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
@@ -20,13 +20,20 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "attributes")
+@Table(
+        name = "attributes",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "attribute_title_uq",
+                        columnNames = "title"
+                )
+        }
+)
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 public class Attribute implements Serializable {
 
     @Id
@@ -38,6 +45,9 @@ public class Attribute implements Serializable {
 
     @Column(name = "measurement_unit", length = 50, nullable = false)
     private String unit;
+
+    @Column(name = "description", length = 500)
+    private String description;
 
     @ManyToMany(mappedBy = "possibleAttributes")
     @ToString.Exclude

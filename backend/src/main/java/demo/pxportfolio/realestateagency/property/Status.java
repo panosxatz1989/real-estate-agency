@@ -1,4 +1,4 @@
-package demo.pxportfolio.realestateagency.property.listing;
+package demo.pxportfolio.realestateagency.property;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -6,10 +6,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
@@ -17,13 +17,20 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "attachments")
+@Table(
+        name = "attachments",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "attachment_path_uq",
+                        columnNames = "path"
+                )
+        }
+)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 public class Attachment implements Serializable {
 
     @Id
@@ -35,6 +42,9 @@ public class Attachment implements Serializable {
 
     @Column(name = "path", length = 500, nullable = false)
     private String path;
+
+    @Column(name = "filename", length = 500, nullable = false)
+    private String filename;
 
     @Column(name = "file_size", nullable = false)
     private Integer fileSize;

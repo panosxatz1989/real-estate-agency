@@ -12,14 +12,13 @@ import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
+import org.springframework.security.core.GrantedAuthority;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
-import org.springframework.security.core.GrantedAuthority;
 
 @Entity
 @Table(
@@ -38,7 +37,6 @@ import org.springframework.security.core.GrantedAuthority;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 public class Permission implements Serializable, GrantedAuthority {
 
     @Id
@@ -60,6 +58,7 @@ public class Permission implements Serializable, GrantedAuthority {
     }
 
     @ManyToMany(mappedBy = "permissions")
+    @ToString.Exclude
     private Set<Role> roles;
 
     @Override

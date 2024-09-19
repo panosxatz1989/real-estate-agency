@@ -1,22 +1,17 @@
 package demo.pxportfolio.realestateagency.property;
 
+import demo.pxportfolio.realestateagency.auth.user.User;
 import demo.pxportfolio.realestateagency.property.type.PropertyType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.CreationTimestamp;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -24,14 +19,28 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Setter
 @ToString
-@RequiredArgsConstructor
 public class Property implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "title", length = 500, nullable = false)
+    private String title;
+
+    @Column(name = "description", length = 4000)
+    private String description;
+
+    @Column(name = "original_price", precision = 10, scale = 2)
+    private BigDecimal originalPrice;
+
+    @Column(name = "current_price", precision = 10, scale = 2)
+    private BigDecimal price;
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
     @ManyToOne
     @JoinColumn(
@@ -41,6 +50,51 @@ public class Property implements Serializable {
             )
     )
     private PropertyType propertyType;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "author",
+            foreignKey = @ForeignKey(
+                    name = "properties_to_users_fk"
+            )
+    )
+    private User author;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", length = 20, nullable = false)
+    private Status status;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setOriginalPrice(BigDecimal originalPrice) {
+        this.originalPrice = originalPrice;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public void setPropertyType(PropertyType propertyType) {
+        this.propertyType = propertyType;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     @Override
     public boolean equals(Object o) {

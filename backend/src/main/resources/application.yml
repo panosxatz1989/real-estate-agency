@@ -1,0 +1,12 @@
+server:
+  port: 8090
+  servlet:
+    context-path: /api
+
+# Custom properties
+app:
+  security:
+    jwt:
+      secret-key:
+      token:
+        expiration:

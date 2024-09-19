@@ -1,16 +1,7 @@
-package demo.pxportfolio.realestateagency.property.view;
+package demo.pxportfolio.realestateagency.misc.notification;
 
 import demo.pxportfolio.realestateagency.auth.user.User;
-import demo.pxportfolio.realestateagency.property.Property;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,46 +13,45 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+
 @Entity
-@Table(name = "views")
+@Table(name = "notifications")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class PropertyView implements Serializable {
+public class Notification implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(
-            name = "user_id",
-            foreignKey = @ForeignKey(
-                    name = "views_to_users_fk"
-            )
-    )
-    private User user;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "subject", length = 200, nullable = false)
+    private Subject subject;
+
+    @Column(name = "body", length = 4000, nullable = false)
+    private String body;
 
     @ManyToOne
     @JoinColumn(
-            name = "property_id",
+            name = "receiver",
             foreignKey = @ForeignKey(
-                    name = "views_to_properties_fk"
+                    name = "notifications_to_users_fk"
             )
     )
-    private Property property;
+    private User receiver;
 
     @CreationTimestamp
-    @Column(name = "viewed_at", nullable = false)
-    private LocalDateTime viewedAt;
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        PropertyView that = (PropertyView) o;
+        Notification that = (Notification) o;
         return id != null && Objects.equals(id, that.id);
     }
 

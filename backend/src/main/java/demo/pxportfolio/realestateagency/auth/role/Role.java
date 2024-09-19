@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
@@ -37,7 +36,6 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 public class Role implements Serializable {
 
     @Id
@@ -68,9 +66,11 @@ public class Role implements Serializable {
 
             )
     )
+    @ToString.Exclude
     private Set<Permission> permissions;
 
     @ManyToMany(mappedBy = "roles")
+    @ToString.Exclude
     private Set<User> users;
 
     @Override

@@ -4,15 +4,20 @@ import demo.pxportfolio.realestateagency.auth.permission.Permission;
 import demo.pxportfolio.realestateagency.auth.role.Role;
 import demo.pxportfolio.realestateagency.property.Property;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(
@@ -30,7 +35,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 )
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@ToString
 public class User implements Serializable, UserDetails {
 
     @Id
@@ -67,6 +74,7 @@ public class User implements Serializable, UserDetails {
 
             )
     )
+    @ToString.Exclude
     private Set<Role> roles;
 
     @ManyToMany
@@ -87,16 +95,22 @@ public class User implements Serializable, UserDetails {
 
             )
     )
+    @ToString.Exclude
     private Set<Property> favourites;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<Permission> permissions = new HashSet<>();
 
-        for (Role role : roles) {
-            permissions.addAll(role.getPermissions());
-        }
-        return permissions;
+        return roles.stream()
+                .flatMap(role -> role.getPermissions().stream())
+                .collect(Collectors.toSet());
+
+//        Set<Permission> permissions = new HashSet<>();
+//
+//        for (Role role : roles) {
+//            permissions.addAll(role.getPermissions());
+//        }
+//        return permissions;
     }
 
     @Override
@@ -117,5 +131,18 @@ public class User implements Serializable, UserDetails {
     @Override
     public boolean isEnabled() {
         return this.active;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        User user = (User) o;
+        return id != null && Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

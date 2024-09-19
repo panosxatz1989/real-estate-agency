@@ -1,4 +1,4 @@
-package demo.pxportfolio.realestateagency.config;
+package demo.pxportfolio.realestateagency.config.general;
 
 import demo.pxportfolio.realestateagency.auth.user.UserRepository;
 import lombok.RequiredArgsConstructor;
