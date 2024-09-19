@@ -21,7 +21,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public JwtResponseDto register(@Valid @RequestBody RegisterRequestDto req) {
-        return authService.register(req);
+    public JwtResponseDto register(@Valid @RequestBody RegisterRequestDto dto) {
+        return authService.register(dto);
     }
 }

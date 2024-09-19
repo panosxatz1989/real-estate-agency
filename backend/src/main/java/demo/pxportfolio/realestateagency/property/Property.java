@@ -1,8 +1,12 @@
 package demo.pxportfolio.realestateagency.property;
 
 import demo.pxportfolio.realestateagency.auth.user.User;
+import demo.pxportfolio.realestateagency.property.data.PropertyAttribute;
 import demo.pxportfolio.realestateagency.property.type.PropertyType;
+import demo.pxportfolio.realestateagency.property.view.PropertyView;
 import jakarta.persistence.*;
+import java.util.List;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -63,6 +67,12 @@ public class Property implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 20, nullable = false)
     private Status status;
+
+    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
+    private Set<PropertyView> views;
+
+    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
+    private Set<PropertyAttribute> attributes;
 
     public void setId(Long id) {
         this.id = id;

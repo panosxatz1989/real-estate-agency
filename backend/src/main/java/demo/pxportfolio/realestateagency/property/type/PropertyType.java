@@ -13,7 +13,15 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "property_types")
+@Table(
+        name = "property_types",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "property_type_uq",
+                        columnNames = "type"
+                )
+        }
+)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

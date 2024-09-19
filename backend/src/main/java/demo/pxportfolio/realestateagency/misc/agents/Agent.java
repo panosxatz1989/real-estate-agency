@@ -2,6 +2,7 @@ package demo.pxportfolio.realestateagency.misc.agents;
 
 import demo.pxportfolio.realestateagency.auth.user.User;
 import demo.pxportfolio.realestateagency.misc.attachment.Attachment;
+import demo.pxportfolio.realestateagency.misc.base.ListEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
@@ -29,7 +30,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class Agent implements Serializable {
+public class Agent implements Serializable, ListEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,6 +68,16 @@ public class Agent implements Serializable {
             )
     )
     private Attachment profilePic;
+
+    @Override
+    public Long getKey() {
+        return this.id;
+    }
+
+    @Override
+    public String getValue() {
+        return this.lastname + " " + this.firstname;
+    }
 
     @Override
     public boolean equals(Object o) {

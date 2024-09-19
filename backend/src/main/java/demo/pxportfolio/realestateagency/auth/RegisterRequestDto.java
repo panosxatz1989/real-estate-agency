@@ -15,15 +15,15 @@ import lombok.NoArgsConstructor;
 @Builder
 public class RegisterRequestDto {
 
-    @NotBlank(message = "Username must not be empty.")
-    @Size(max = 100, message = "Username must not exceed 100 characters.")
+    @NotBlank(message = "{app.messages.validation.user.username.not-blank}")
+    @Size(min = 8, max = 100, message = "{app.messages.validation.user.username.size}")
     private String username;
 
-    @NotBlank(message = "Password must not be empty.")
-    @Size(max = 100, message = "Password must not exceed 100 characters.")
+    @NotBlank(message = "{app.messages.validation.user.password.not-blank}")
+    @Size(min = 8, max = 100, message = "{app.messages.validation.user.password.size}")
     private String password;
 
-    @Email(message = "Email must be valid.")
+    @Email(message = "{app.messages.validation.user.email.invalid}")
     private String email;
 
     private Set<Long> roleIds;

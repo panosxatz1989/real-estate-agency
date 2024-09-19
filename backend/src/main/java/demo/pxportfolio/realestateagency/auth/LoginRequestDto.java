@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class LoginRequestDto {
 
-    @NotBlank(message = "Username must not be empty.")
+    @NotBlank(message = "{app.messages.validation.user.username.not-blank}")
     private String username;
 
-    @NotBlank(message = "Password must not be empty.")
+    @NotBlank(message = "{app.messages.validation.user.password.not-blank}")
     private String password;
 }

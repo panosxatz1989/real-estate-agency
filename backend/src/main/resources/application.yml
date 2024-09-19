@@ -10,3 +10,14 @@ app:
       secret-key:
       token:
         expiration:
+  messages:
+    validation:
+      user:
+        username:
+          not-blank: Please provide a username.
+          size: Username must be between 8 and 100 characters long.
+        password:
+          not-blank: Please provide a password.
+          size: Password must be between 8 and 100 characters long.
+        email:
+          invalid: Please provide a valid email in this format test@example.com.

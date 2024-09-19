@@ -8,6 +8,7 @@ import lombok.Getter;
 public enum Subject {
 
     SOLD("Πώληση Ιδιοκτησίας"),
+    DELETED("Διαγραφή Ιδιοκτησίας"),
     PRICE_DROP("Πτώση Τιμής");
 
     private final String label;
