@@ -11,9 +11,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     String USERNAME_OR_EMAIL_QUERY =
             " SELECT u " +
             " FROM User u " +
-            " WHERE u.username LIKE ':credential' " +
-            " OR u.email LIKE ':credential' ";
+            " WHERE u.username LIKE :credential " +
+            " OR u.email LIKE :credential ";
 
-    @Query(value = USERNAME_OR_EMAIL_QUERY, nativeQuery = true)
+    @Query(value = USERNAME_OR_EMAIL_QUERY)
     Optional<User> findByUsernameOrEmail(String credential);
 }
