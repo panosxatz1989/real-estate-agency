@@ -3,6 +3,7 @@ package demo.pxportfolio.realestateagency.misc.notification;
 import demo.pxportfolio.realestateagency.auth.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +22,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
+@Builder
 public class Notification implements Serializable {
 
     @Id

@@ -9,7 +9,8 @@ public enum Status {
 
     ACTIVE("Ενεργή"),
     PENDING("Σε κράτηση"),
-    SOLD("Πωλήθηκε");
+    SOLD("Πωλήθηκε"),
+    DELETED("Διαγράφηκε");
 
     private final String label;
 }

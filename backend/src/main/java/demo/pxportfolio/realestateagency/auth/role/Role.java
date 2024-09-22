@@ -2,6 +2,7 @@ package demo.pxportfolio.realestateagency.auth.role;
 
 import demo.pxportfolio.realestateagency.auth.permission.Permission;
 import demo.pxportfolio.realestateagency.auth.user.User;
+import demo.pxportfolio.realestateagency.misc.base.ListEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,7 +37,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-public class Role implements Serializable {
+public class Role implements Serializable, ListEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,6 +73,16 @@ public class Role implements Serializable {
     @ManyToMany(mappedBy = "roles")
     @ToString.Exclude
     private Set<User> users;
+
+    @Override
+    public Long getKey() {
+        return this.id;
+    }
+
+    @Override
+    public String getValue() {
+        return this.title;
+    }
 
     @Override
     public boolean equals(Object o) {

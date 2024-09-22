@@ -3,15 +3,9 @@ package demo.pxportfolio.realestateagency.misc.agents;
 import demo.pxportfolio.realestateagency.auth.user.User;
 import demo.pxportfolio.realestateagency.misc.attachment.Attachment;
 import demo.pxportfolio.realestateagency.misc.base.ListEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import demo.pxportfolio.realestateagency.property.Property;
+import jakarta.persistence.*;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,9 +42,6 @@ public class Agent implements Serializable, ListEntity {
     @Column(name = "cellular_phone", length = 10, nullable = false)
     private String cellularPhone;
 
-    @Column(name = "email", length = 100, nullable = false)
-    private String email;
-
     @OneToOne
     @JoinColumn(
             name = "user_id",
@@ -68,6 +59,9 @@ public class Agent implements Serializable, ListEntity {
             )
     )
     private Attachment profilePic;
+
+    @OneToMany(mappedBy = "agent", fetch = FetchType.EAGER)
+    private Set<Property> properties;
 
     @Override
     public Long getKey() {

@@ -1,6 +1,7 @@
 package demo.pxportfolio.realestateagency.auth.permission;
 
 import demo.pxportfolio.realestateagency.auth.role.Role;
+import demo.pxportfolio.realestateagency.misc.base.ListEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,7 +38,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-public class Permission implements Serializable, GrantedAuthority {
+public class Permission implements Serializable, GrantedAuthority, ListEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,6 +61,16 @@ public class Permission implements Serializable, GrantedAuthority {
     @ManyToMany(mappedBy = "permissions")
     @ToString.Exclude
     private Set<Role> roles;
+
+    @Override
+    public Long getKey() {
+        return this.id;
+    }
+
+    @Override
+    public String getValue() {
+        return this.getAuthority();
+    }
 
     @Override
     public boolean equals(Object o) {

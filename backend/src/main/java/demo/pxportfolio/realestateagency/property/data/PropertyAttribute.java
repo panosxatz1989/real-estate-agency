@@ -2,15 +2,7 @@ package demo.pxportfolio.realestateagency.property.data;
 
 import demo.pxportfolio.realestateagency.property.Property;
 import demo.pxportfolio.realestateagency.property.attribute.Attribute;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +13,18 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "properties_attributes")
+@Table(
+        name = "properties_attributes",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "properties_attributes_uq",
+                        columnNames = {
+                                "property_id",
+                                "attribute_id"
+                        }
+                )
+        }
+)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

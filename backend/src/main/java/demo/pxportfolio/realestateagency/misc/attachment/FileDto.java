@@ -1,19 +1,20 @@
 package demo.pxportfolio.realestateagency.misc.attachment;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
-public class AttachmentDto {
+public class FileDto {
 
-    private Long id;
-    private String contentType;
-    private String path;
-    private String filename;
-    private Integer fileSize;
+    private AttachmentDto attachmentDto;
+
+    @NotNull
+    private MultipartFile file;
 }

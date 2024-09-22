@@ -1,5 +1,6 @@
 package demo.pxportfolio.realestateagency.property.type;
 
+import demo.pxportfolio.realestateagency.misc.base.ListEntity;
 import demo.pxportfolio.realestateagency.property.attribute.Attribute;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,7 +28,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-public class PropertyType implements Serializable {
+public class PropertyType implements Serializable, ListEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,6 +57,16 @@ public class PropertyType implements Serializable {
     )
     @ToString.Exclude
     private Set<Attribute> possibleAttributes;
+
+    @Override
+    public Long getKey() {
+        return this.id;
+    }
+
+    @Override
+    public String getValue() {
+        return this.type;
+    }
 
     @Override
     public boolean equals(Object o) {

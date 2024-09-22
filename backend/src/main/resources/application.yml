@@ -1,3 +1,6 @@
+spring:
+  profiles:
+    active: dev
 server:
   port: 8090
   servlet:
@@ -7,9 +10,11 @@ server:
 app:
   security:
     jwt:
-      secret-key:
+      secret-key: 5fbea5ec7f0625a059be825d829b533487aeeafe45b974d0d88b9a17ba33117e
       token:
-        expiration:
+        expiration: 86400000
+    filter:
+      header: "Bearer "
   messages:
     validation:
       user:
@@ -21,3 +26,19 @@ app:
           size: Password must be between 8 and 100 characters long.
         email:
           invalid: Please provide a valid email in this format test@example.com.
+      property:
+        title:
+          not-blank: Please provide a title.
+          size: Title must be 500 characters maximum.
+        description:
+          size: Property description must not exceed 4000 characters.
+        price:
+          not-null: Please provide a price for the property.
+        type:
+          not-null: Please provide a property type.
+        author:
+          not-null: Please provide the author of the listing.
+        agent:
+          not-null: Please provide the agent that manages the property.
+        attributes:
+          not-null: Please provide some information about the property.

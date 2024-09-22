@@ -20,7 +20,7 @@ public class JwtService {
     @Value("${app.security.jwt.secret-key}")
     private String key;
 
-    @Value("${app.security.jwt.access-token.expiration}")
+    @Value("${app.security.jwt.token.expiration}")
     private Long accessTokenExpiration;
 
     /**

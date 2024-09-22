@@ -1,6 +1,8 @@
 package demo.pxportfolio.realestateagency.auth.user;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +18,13 @@ public class UserController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('auth_user_view')")
-    public UserDto findUserById(@PathVariable Long id) {
-        return userService.findUserById(id);
+    public UserDto getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAuthority('auth_user_view')")
+    public Page<UserDto> getAllUsers(Pageable pageable) {
+        return userService.getAllUsers(pageable);
     }
 }

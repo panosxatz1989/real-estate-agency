@@ -14,22 +14,22 @@ import org.springframework.util.StringUtils;
 public class PropertySpecification {
 
     public Specification<Property> getProperties(PropertyFilterDto filter) {
-        return (root, query, criteriaBuilder) -> {
+        return (root, query, cb) -> {
 
             List<Predicate> predicates = new ArrayList<>();
 
             if (StringUtils.hasLength(filter.getTitle())) {
-                Predicate titlePredicate = criteriaBuilder.like(root.get("title"), "%" + filter.getTitle() + "%");
+                Predicate titlePredicate = cb.like(root.get("title"), "%" + filter.getTitle() + "%");
                 predicates.add(titlePredicate);
             }
 
             if (Objects.nonNull(filter.getPriceFrom())) {
-                Predicate priceFromPredicate = criteriaBuilder.greaterThanOrEqualTo(root.get("price"), filter.getPriceFrom());
+                Predicate priceFromPredicate = cb.greaterThanOrEqualTo(root.get("price"), filter.getPriceFrom());
                 predicates.add(priceFromPredicate);
             }
 
             if (Objects.nonNull(filter.getPriceTo())) {
-                Predicate priceFromPredicate = criteriaBuilder.greaterThanOrEqualTo(root.get("price"), filter.getPriceTo());
+                Predicate priceFromPredicate = cb.greaterThanOrEqualTo(root.get("price"), filter.getPriceTo());
                 predicates.add(priceFromPredicate);
             }
 
@@ -39,7 +39,7 @@ public class PropertySpecification {
                 predicates.add(statusPredicate);
             }
 
-            return criteriaBuilder.and(predicates.toArray(Predicate[]::new));
+            return cb.and(predicates.toArray(Predicate[]::new));
         };
     }
 }

@@ -1,10 +1,15 @@
 package demo.pxportfolio.realestateagency.auth.user;
 
-import demo.pxportfolio.realestateagency.auth.permission.Permission;
 import demo.pxportfolio.realestateagency.auth.role.Role;
 import demo.pxportfolio.realestateagency.property.Property;
 import jakarta.persistence.*;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,12 +17,6 @@ import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(
@@ -38,6 +37,7 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @ToString
+@Builder
 public class User implements Serializable, UserDetails {
 
     @Id

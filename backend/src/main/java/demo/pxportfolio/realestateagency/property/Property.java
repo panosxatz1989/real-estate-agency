@@ -1,13 +1,15 @@
 package demo.pxportfolio.realestateagency.property;
 
 import demo.pxportfolio.realestateagency.auth.user.User;
+import demo.pxportfolio.realestateagency.misc.agents.Agent;
+import demo.pxportfolio.realestateagency.misc.attachment.Attachment;
 import demo.pxportfolio.realestateagency.property.data.PropertyAttribute;
 import demo.pxportfolio.realestateagency.property.type.PropertyType;
 import demo.pxportfolio.realestateagency.property.view.PropertyView;
 import jakarta.persistence.*;
-import java.util.List;
 import java.util.Set;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -24,6 +26,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Getter
 @ToString
+@Builder
 public class Property implements Serializable {
 
     @Id
@@ -41,6 +44,9 @@ public class Property implements Serializable {
 
     @Column(name = "current_price", precision = 10, scale = 2)
     private BigDecimal price;
+
+    @Column(name = "is_negotiable", nullable = false)
+    private Boolean isNegotiable;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -64,9 +70,38 @@ public class Property implements Serializable {
     )
     private User author;
 
+    @ManyToOne
+    @JoinColumn(
+            name = "agent_id",
+            foreignKey = @ForeignKey(
+                    name = "properties_to_agents_fk"
+            )
+    )
+    private Agent agent;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 20, nullable = false)
     private Status status;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "properties_attachments",
+            joinColumns = @JoinColumn(
+                    name = "property_id",
+                    foreignKey = @ForeignKey(
+                            name = "properties_attachments_to_properties_fk"
+                    )
+
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "attachment_id",
+                    foreignKey = @ForeignKey(
+                            name = "properties_attachments_to_attachments_fk"
+                    )
+
+            )
+    )
+    private Set<Attachment> photos;
 
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
     private Set<PropertyView> views;
@@ -104,6 +139,30 @@ public class Property implements Serializable {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public void setNegotiable(Boolean negotiable) {
+        isNegotiable = negotiable;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setAgent(Agent agent) {
+        this.agent = agent;
+    }
+
+    public void setPhotos(Set<Attachment> photos) {
+        this.photos = photos;
+    }
+
+    public void setViews(Set<PropertyView> views) {
+        this.views = views;
+    }
+
+    public void setAttributes(Set<PropertyAttribute> attributes) {
+        this.attributes = attributes;
     }
 
     @Override
