@@ -5,6 +5,7 @@ import demo.pxportfolio.realestateagency.misc.agents.Agent;
 import demo.pxportfolio.realestateagency.misc.attachment.Attachment;
 import demo.pxportfolio.realestateagency.misc.geodata.location.Location;
 import demo.pxportfolio.realestateagency.property.floor.Floor;
+import demo.pxportfolio.realestateagency.property.inquiry.Inquiry;
 import demo.pxportfolio.realestateagency.property.type.PropertyType;
 import demo.pxportfolio.realestateagency.property.view.PropertyView;
 import jakarta.persistence.*;
@@ -139,6 +140,9 @@ public class Property implements Serializable {
 
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
     private Set<PropertyView> views;
+
+    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
+    private Set<Inquiry> inquiries;
 
     @ManyToMany(mappedBy = "favourites", fetch = FetchType.LAZY)
     private Set<User> favourites;
