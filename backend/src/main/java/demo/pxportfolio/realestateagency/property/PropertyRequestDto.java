@@ -1,6 +1,5 @@
 package demo.pxportfolio.realestateagency.property;
 
-import demo.pxportfolio.realestateagency.property.data.PropertyAttributeDto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -43,7 +42,4 @@ public class PropertyRequestDto {
     private List<Long> attachmentIds;
 
     private Status status = Status.ACTIVE;
-
-    @NotNull(message = "{app.messages.validation.property.attributes.not-null}")
-    private List<PropertyAttributeDto> attributeValues;
 }

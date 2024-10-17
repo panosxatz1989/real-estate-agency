@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Builder
 public class FileDto {
 
+    @NotNull
     private AttachmentDto attachmentDto;
 
     @NotNull

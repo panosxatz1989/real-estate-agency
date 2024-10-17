@@ -9,10 +9,8 @@ import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.Hibernate;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -23,7 +21,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 public class Agent implements Serializable, ListEntity {
 
     @Id
@@ -76,13 +73,13 @@ public class Agent implements Serializable, ListEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Agent agent = (Agent) o;
-        return id != null && Objects.equals(id, agent.id);
+        return Objects.equals(id, agent.id);
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(id);
     }
 }

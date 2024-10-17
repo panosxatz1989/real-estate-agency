@@ -4,15 +4,15 @@ import demo.pxportfolio.realestateagency.auth.permission.Permission;
 import demo.pxportfolio.realestateagency.auth.user.User;
 import demo.pxportfolio.realestateagency.misc.base.ListEntity;
 import jakarta.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
+import java.util.Set;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.Hibernate;
-import java.io.Serializable;
-import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(
@@ -37,6 +37,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
+@Builder
 public class Role implements Serializable, ListEntity {
 
     @Id
@@ -70,7 +71,7 @@ public class Role implements Serializable, ListEntity {
     @ToString.Exclude
     private Set<Permission> permissions;
 
-    @ManyToMany(mappedBy = "roles")
+    @OneToMany(mappedBy = "role")
     @ToString.Exclude
     private Set<User> users;
 
@@ -87,13 +88,13 @@ public class Role implements Serializable, ListEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Role role = (Role) o;
-        return id != null && Objects.equals(id, role.id);
+        return Objects.equals(id, role.id);
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(id);
     }
 }

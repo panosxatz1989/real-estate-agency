@@ -59,7 +59,7 @@ public class PropertyController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasAuthority('listing_property_delete')")
-    public void deletePropertyById() {
-
+    public void deletePropertyById(@PathVariable Long id) {
+        propertyService.deletePropertyById(id);
     }
 }

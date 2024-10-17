@@ -1,7 +1,10 @@
 package demo.pxportfolio.realestateagency.auth.user;
 
-
+import demo.pxportfolio.realestateagency.auth.RegisterRequestDto;
 import demo.pxportfolio.realestateagency.config.exception.EntityNotFoundException;
+import demo.pxportfolio.realestateagency.property.Property;
+import demo.pxportfolio.realestateagency.property.PropertyService;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -14,13 +17,16 @@ public class UserService {
 
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
+    private final PropertyService propertyService;
     private static final String ENTITY_CLASS = User.class.getSimpleName();
 
-    public UserDto getUserById(Long id) {
-        User existingUser = userRepository.findById(id)
-                .orElseThrow(() ->
-                        new EntityNotFoundException(ENTITY_CLASS, id.toString()));
-        return modelMapper.map(existingUser, UserDto.class);
+    public UserDto getUserDtoById(Long id) {
+        return modelMapper.map(this.getUserById(id), UserDto.class);
+    }
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(ENTITY_CLASS, id.toString()));
     }
 
     public User getUserByUsername(String username) {
@@ -33,5 +39,21 @@ public class UserService {
     public Page<UserDto> getAllUsers(Pageable pageable) {
         return userRepository.findAll(pageable)
                 .map(u -> modelMapper.map(u, UserDto.class));
+    }
+
+    public UserDto createUser(RegisterRequestDto request) {
+        return null;
+    }
+
+    public UserDto addToFavourites(Long userId, Long propertyId) {
+        User existingUser = this.getUserById(userId);
+
+        existingUser.getFavourites().add(propertyService.getPropertyById(propertyId));
+
+        return modelMapper.map(userRepository.save(existingUser), UserDto.class);
+    }
+
+    public Set<Property> getAllFavourites(Long userId) {
+        return this.getUserById(userId).getFavourites();
     }
 }

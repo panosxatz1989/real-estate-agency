@@ -2,6 +2,7 @@ package demo.pxportfolio.realestateagency.auth;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import java.util.Set;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,9 @@ public class RegisterRequestDto {
 
     @Email(message = "{app.messages.validation.user.email.invalid}")
     private String email;
+
+    @Size(min = 10, max = 10, message = "{app.messages.validation.user.phone}")
+    private String phone;
 
     private Set<Long> roleIds;
 }
