@@ -1,5 +1,7 @@
 package demo.pxportfolio.realestateagency.property;
 
+import demo.pxportfolio.realestateagency.property.inquiry.Inquiry;
+import demo.pxportfolio.realestateagency.property.inquiry.InquiryRequestDto;
 import jakarta.validation.Valid;
 import java.net.URI;
 import lombok.RequiredArgsConstructor;
@@ -48,6 +50,11 @@ public class PropertyController {
                 .buildAndExpand(property.getId())
                 .toUri();
         return ResponseEntity.created(uri).body(property);
+    }
+
+    @PostMapping("/{propertyId}/inquiry")
+    public Inquiry createInquiry(@Valid @RequestBody InquiryRequestDto dto) {
+        return null;
     }
 
     @PutMapping("/{id}")
