@@ -4,7 +4,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,14 +20,16 @@ public class RegisterRequestDto {
     private String username;
 
     @NotBlank(message = "{app.messages.validation.user.password.not-blank}")
-    @Size(min = 8, max = 100, message = "{app.messages.validation.user.password.size}")
+    @Size(max = 100, message = "{app.messages.validation.user.password.size}")
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$!]).{8,}$", message = "{app.messages.validation.user.password.invalid}")
     private String password;
 
     @Email(message = "{app.messages.validation.user.email.invalid}")
     private String email;
 
-    @Size(min = 10, max = 10, message = "{app.messages.validation.user.phone}")
+    @NotBlank(message = "{app.messages.validation.user.phone.not-blank}")
+    @Size(min = 10, max = 10, message = "{app.messages.validation.user.phone.size}")
     private String phone;
 
-    private Set<Long> roleIds;
+    private Long roleId;
 }

@@ -19,5 +19,4 @@ public class PropertyFilterDto {
     private LocalDateTime createdAtTo;
     private List<Long> propertyTypes;
     private String status;
-    private String orderBy;
 }

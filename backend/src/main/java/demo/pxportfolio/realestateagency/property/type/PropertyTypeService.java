@@ -2,7 +2,6 @@ package demo.pxportfolio.realestateagency.property.type;
 
 import demo.pxportfolio.realestateagency.config.exception.EntityNotFoundException;
 import demo.pxportfolio.realestateagency.misc.base.ListDto;
-import demo.pxportfolio.realestateagency.misc.base.ListEntity;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;

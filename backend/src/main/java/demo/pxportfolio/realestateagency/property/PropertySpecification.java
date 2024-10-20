@@ -39,6 +39,11 @@ public class PropertySpecification {
                 predicates.add(statusPredicate);
             }
 
+            if (StringUtils.hasLength(filter.getStatus())) {
+                Predicate statusPredicate = cb.like(root.get("status"), filter.getStatus());
+                predicates.add(statusPredicate);
+            }
+
             return cb.and(predicates.toArray(Predicate[]::new));
         };
     }

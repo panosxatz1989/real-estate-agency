@@ -22,14 +22,14 @@ public class PropertyTypeController {
         return propertyTypeService.getAllPropertyTypes();
     }
 
-    @GetMapping("/list")
-    public List<ListDto> getAllPropertyTypesList() {
-        return propertyTypeService.getAllPropertyTypesList();
-    }
-
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('listing_type_view')")
     public PropertyType getPropertyTypeById(@PathVariable Long id) {
         return propertyTypeService.getPropertyTypeById(id);
+    }
+
+    @GetMapping("/list")
+    public List<ListDto> getAllPropertyTypesList() {
+        return propertyTypeService.getAllPropertyTypesList();
     }
 }

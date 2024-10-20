@@ -1,7 +1,6 @@
-package demo.pxportfolio.realestateagency.misc.geodata.location;
+package demo.pxportfolio.realestateagency.geodata.location;
 
-import demo.pxportfolio.realestateagency.misc.base.ListEntity;
-import demo.pxportfolio.realestateagency.misc.geodata.city.City;
+import demo.pxportfolio.realestateagency.geodata.city.City;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;

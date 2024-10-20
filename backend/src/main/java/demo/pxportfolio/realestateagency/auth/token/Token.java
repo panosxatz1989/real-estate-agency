@@ -1,7 +1,6 @@
-package demo.pxportfolio.realestateagency.property.view;
+package demo.pxportfolio.realestateagency.auth.token;
 
 import demo.pxportfolio.realestateagency.auth.user.User;
-import demo.pxportfolio.realestateagency.property.Property;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
@@ -9,59 +8,56 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Objects;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.CreationTimestamp;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
-@Table(name = "views")
+@Table(name = "tokens")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class PropertyView implements Serializable {
+@Builder
+public class Token implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(
             name = "user_id",
             foreignKey = @ForeignKey(
-                    name = "views_to_users_fk"
+                    name = "tokens_to_users_fk"
             )
     )
     private User user;
 
-    @ManyToOne
-    @JoinColumn(
-            name = "property_id",
-            foreignKey = @ForeignKey(
-                    name = "views_to_properties_fk"
-            )
-    )
-    private Property property;
+    @Column(name = "token")
+    private String token;
 
-    @CreationTimestamp
-    @Column(name = "viewed_at", nullable = false, updatable = false)
-    private LocalDateTime viewedAt;
+    @Column(name = "token_requested_at")
+    private LocalDateTime requestedAt;
+
+    @Column(name = "token_expiration")
+    private LocalDateTime tokenExpiration;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PropertyView that = (PropertyView) o;
-        return Objects.equals(id, that.id);
+        Token token = (Token) o;
+        return Objects.equals(id, token.id);
     }
 
     @Override

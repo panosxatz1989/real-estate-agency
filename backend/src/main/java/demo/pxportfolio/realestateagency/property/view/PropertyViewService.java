@@ -9,7 +9,7 @@ public class PropertyViewService {
 
     private final PropertyViewRepository propertyViewRepository;
 
-    public Integer getAllViewsCount(Long propertyId) {
+    public Integer countPropertyViews(Long propertyId) {
         return propertyViewRepository.countByPropertyId(propertyId);
     }
 

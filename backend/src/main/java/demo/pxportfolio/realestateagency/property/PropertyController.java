@@ -1,7 +1,6 @@
 package demo.pxportfolio.realestateagency.property;
 
-import demo.pxportfolio.realestateagency.property.inquiry.Inquiry;
-import demo.pxportfolio.realestateagency.property.inquiry.InquiryRequestDto;
+import demo.pxportfolio.realestateagency.auth.user.User;
 import jakarta.validation.Valid;
 import java.net.URI;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,11 +52,6 @@ public class PropertyController {
         return ResponseEntity.created(uri).body(property);
     }
 
-    @PostMapping("/{propertyId}/inquiry")
-    public Inquiry createInquiry(@Valid @RequestBody InquiryRequestDto dto) {
-        return null;
-    }
-
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('listing_property_update')")
     public Property updateProperty() {
@@ -66,7 +61,8 @@ public class PropertyController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasAuthority('listing_property_delete')")
-    public void deletePropertyById(@PathVariable Long id) {
-        propertyService.deletePropertyById(id);
+    public ResponseEntity<Void> deletePropertyById(@PathVariable Long id, @AuthenticationPrincipal User user) {
+        propertyService.deletePropertyById(id, user);
+        return ResponseEntity.noContent().build();
     }
 }

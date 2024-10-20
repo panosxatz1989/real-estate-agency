@@ -1,5 +1,6 @@
 package demo.pxportfolio.realestateagency.property;
 
+import demo.pxportfolio.realestateagency.geodata.location.LocationDto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -23,12 +24,21 @@ public class PropertyRequestDto {
     @Size(max = 4000, message = "{app.messages.validation.property.description.size}")
     private String description;
 
+    @NotNull(message = "")
+    private ListingType listingType;
+
     @NotNull(message = "{app.messages.validation.property.price.not-null}")
     private BigDecimal originalPrice;
 
     private BigDecimal price = originalPrice;
 
     private Boolean isNegotiable = false;
+
+    private Double area;
+
+    private Integer rooms;
+
+    private Integer yearOfConstruction;
 
     @NotNull(message = "{app.messages.validation.property.type.not-null}")
     private Long propertyTypeId;
@@ -40,6 +50,8 @@ public class PropertyRequestDto {
     private Long agentId;
 
     private List<Long> attachmentIds;
+
+    private LocationDto location;
 
     private Status status = Status.ACTIVE;
 }

@@ -5,28 +5,22 @@ import demo.pxportfolio.realestateagency.misc.base.ListDto;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class AgentService {
 
-    private final ModelMapper modelMapper;
     private final AgentRepository agentRepository;
+    private static final String ENTITY_CLASS = Agent.class.getSimpleName();
 
-    public List<AgentDto> getAllAgents() {
-        return agentRepository.findAll()
-                .stream()
-                .map(agent -> modelMapper.map(agent, AgentDto.class))
-                .collect(Collectors.toList());
+    public List<Agent> getAllAgents() {
+        return agentRepository.findAll();
     }
 
-    public AgentDto getAgentById(Long id) {
-        Agent existingAgent = agentRepository.findById(id)
-                .orElseThrow(() ->
-                        new EntityNotFoundException(Agent.class.getSimpleName(), id.toString()));
-        return modelMapper.map(existingAgent, AgentDto.class);
+    public Agent getAgentById(Long id) {
+        return agentRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(ENTITY_CLASS, id.toString()));
     }
 
     public List<ListDto> getAllAgentsList() {

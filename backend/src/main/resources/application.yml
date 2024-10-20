@@ -39,9 +39,12 @@ app:
         password:
           not-blank: Please provide a password.
           size: Password must be between 8 and 100 characters long.
+          invalid: Password must be at least 8 characters long, contain at least 1 uppercase letter, 1 number, and 1 special character (@#$!).
         email:
           invalid: Please provide a valid email in this format test@example.com.
-        phone: Please provide a valid 10-digit phone.
+        phone:
+          not-blank: Please provide a phone number.
+          size: Please provide a valid 10-digit phone.
       property:
         title:
           not-blank: Please provide a title.

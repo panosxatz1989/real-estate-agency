@@ -1,4 +1,4 @@
-package demo.pxportfolio.realestateagency.misc.geodata.region;
+package demo.pxportfolio.realestateagency.geodata.region;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

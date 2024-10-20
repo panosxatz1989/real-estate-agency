@@ -1,16 +1,8 @@
-package demo.pxportfolio.realestateagency.misc.geodata.city;
+package demo.pxportfolio.realestateagency.geodata.city;
 
 import demo.pxportfolio.realestateagency.misc.base.ListEntity;
-import demo.pxportfolio.realestateagency.misc.geodata.region.Region;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import demo.pxportfolio.realestateagency.geodata.region.Region;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
@@ -21,7 +13,15 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "cities")
+@Table(
+        name = "cities",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "city_title_uq",
+                        columnNames = "title"
+                )
+        }
+)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -34,7 +34,7 @@ public class City implements Serializable, ListEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title;
 
     @ManyToOne

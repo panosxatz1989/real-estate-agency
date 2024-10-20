@@ -11,11 +11,11 @@ public class AttachmentService {
 
     private final ModelMapper modelMapper;
     private final AttachmentRepository attachmentRepository;
+    private static final String ENTITY_CLASS = Attachment.class.getSimpleName();
 
     public Attachment getAttachmentById(Long id) {
-        return attachmentRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException(Attachment.class.getSimpleName(), id.toString())
-        );
+        return attachmentRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(ENTITY_CLASS, id.toString()));
     }
 
     public AttachmentDto createAttachment(AttachmentDto dto) {

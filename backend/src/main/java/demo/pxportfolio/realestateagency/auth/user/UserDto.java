@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,5 +16,5 @@ public class UserDto {
     private String username;
     private String email;
     private Boolean active;
-    private Set<RoleDto> roles;
+    private RoleDto role;
 }

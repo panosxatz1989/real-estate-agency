@@ -3,7 +3,7 @@ package demo.pxportfolio.realestateagency.property;
 import demo.pxportfolio.realestateagency.auth.user.User;
 import demo.pxportfolio.realestateagency.misc.agents.Agent;
 import demo.pxportfolio.realestateagency.misc.attachment.Attachment;
-import demo.pxportfolio.realestateagency.misc.geodata.location.Location;
+import demo.pxportfolio.realestateagency.geodata.location.Location;
 import demo.pxportfolio.realestateagency.property.floor.Floor;
 import demo.pxportfolio.realestateagency.property.inquiry.Inquiry;
 import demo.pxportfolio.realestateagency.property.type.PropertyType;

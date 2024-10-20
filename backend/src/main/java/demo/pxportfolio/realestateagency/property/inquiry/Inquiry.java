@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
@@ -25,6 +26,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @ToString
 @Builder
 public class Inquiry implements Serializable {
@@ -51,11 +53,17 @@ public class Inquiry implements Serializable {
     )
     private Property property;
 
-    @Column(name = "creation_date", nullable = false)
+    @Column(name = "creation_date")
     private LocalDateTime creationDate;
 
     @Column(name = "message", length = 1000)
     private String message;
+
+    @Column(name = "answer", length = 1000)
+    private String answer;
+
+    @Column(name = "active")
+    private Boolean active;
 
     @Override
     public boolean equals(Object o) {

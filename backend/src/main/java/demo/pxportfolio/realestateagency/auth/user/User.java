@@ -4,6 +4,7 @@ import demo.pxportfolio.realestateagency.auth.role.Role;
 import demo.pxportfolio.realestateagency.property.Property;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
@@ -66,7 +67,7 @@ public class User implements Serializable, UserDetails {
             )
     )
     @ToString.Exclude
-    private Role roles;
+    private Role role;
 
     @ManyToMany
     @JoinTable(
@@ -92,7 +93,7 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.getPermissions();
+        return role.getPermissions();
     }
 
     @Override

@@ -31,7 +31,7 @@ public class AttachmentController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<?> deleteAttachmentById(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteAttachmentById(@PathVariable Long id) {
         attachmentService.deleteAttachmentById(id);
         return ResponseEntity.noContent().build();
     }

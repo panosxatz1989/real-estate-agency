@@ -2,14 +2,12 @@ package demo.pxportfolio.realestateagency.auth;
 
 import demo.pxportfolio.realestateagency.auth.jwt.JwtResponseDto;
 import demo.pxportfolio.realestateagency.auth.jwt.JwtService;
-import demo.pxportfolio.realestateagency.auth.role.Role;
-import demo.pxportfolio.realestateagency.auth.role.RoleDto;
 import demo.pxportfolio.realestateagency.auth.role.RoleService;
 import demo.pxportfolio.realestateagency.auth.user.User;
 import demo.pxportfolio.realestateagency.auth.user.UserRepository;
 import demo.pxportfolio.realestateagency.auth.user.UserService;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.time.LocalDateTime;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,26 +25,15 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
 
-
-    /**
-     * Registers a new user.
-     *
-     * @param request
-     * @return JwtResponseDto A response containing the JWT.
-     */
     public JwtResponseDto register(RegisterRequestDto request) {
-
-        Set<Role> roles = request.getRoleIds()
-                .stream()
-                .map(roleService::getRoleById)
-                .collect(Collectors.toSet());
 
         // Create the user
         User user = User.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .roles(roles)
+                .role(roleService.getRoleById(request.getRoleId()))
+                .phone(request.getPhone())
                 .active(true)
                 .build();
 
@@ -62,12 +49,6 @@ public class AuthService {
                 .build();
     }
 
-    /**
-     * Logins a user and generates the access token.
-     *
-     * @param request A request dto containing username and password.
-     * @return JwtResponseDto A response containing the JWT.
-     */
     public JwtResponseDto login(LoginRequestDto request) {
 
         // Authenticate the user using auto mechanism of Spring Security
@@ -88,5 +69,27 @@ public class AuthService {
         return JwtResponseDto.builder()
                 .accessToken(token)
                 .build();
+    }
+
+    // TODO - Fix correct exception
+    public Object initPasswordReset(User user) {
+
+        if (!user.getActive()) {
+            throw new RuntimeException();
+        }
+
+        String token = UUID.randomUUID().toString();
+        LocalDateTime expiration = LocalDateTime.now();
+
+        user.setResetToken(token);
+        user.setResetTokenExpiration(expiration);
+
+        userRepository.save(user);
+
+        // Then send an email with a template text with the unique password reset link
+
+
+        // Return true/false or the user itself, if everything went ok
+        return null;
     }
 }

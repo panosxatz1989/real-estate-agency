@@ -1,6 +1,6 @@
 package demo.pxportfolio.realestateagency.auth.user;
 
-import demo.pxportfolio.realestateagency.auth.RegisterRequestDto;
+import demo.pxportfolio.realestateagency.auth.role.RoleService;
 import demo.pxportfolio.realestateagency.config.exception.EntityNotFoundException;
 import demo.pxportfolio.realestateagency.property.Property;
 import demo.pxportfolio.realestateagency.property.PropertyService;
@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,9 +17,12 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final PropertyService propertyService;
+    private final RoleService roleService;
     private static final String ENTITY_CLASS = User.class.getSimpleName();
+    private static final String ADMIN_NAME = "administrator";
 
     public UserDto getUserDtoById(Long id) {
         return modelMapper.map(this.getUserById(id), UserDto.class);
@@ -30,19 +34,14 @@ public class UserService {
     }
 
     public User getUserByUsername(String username) {
-        User existingUser = userRepository.findByUsernameOrEmail(username)
+        return userRepository.findByUsernameOrEmail(username)
                 .orElseThrow(() ->
                         new EntityNotFoundException(ENTITY_CLASS, "username", username));
-        return existingUser;
     }
 
     public Page<UserDto> getAllUsers(Pageable pageable) {
         return userRepository.findAll(pageable)
                 .map(u -> modelMapper.map(u, UserDto.class));
-    }
-
-    public UserDto createUser(RegisterRequestDto request) {
-        return null;
     }
 
     public UserDto addToFavourites(Long userId, Long propertyId) {
@@ -55,5 +54,11 @@ public class UserService {
 
     public Set<Property> getAllFavourites(Long userId) {
         return this.getUserById(userId).getFavourites();
+    }
+
+    public Boolean isAdmin(User user) {
+        return user.getRole()
+                .getMachineName()
+                .equals(ADMIN_NAME);
     }
 }

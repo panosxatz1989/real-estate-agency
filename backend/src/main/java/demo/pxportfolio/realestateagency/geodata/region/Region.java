@@ -1,7 +1,7 @@
-package demo.pxportfolio.realestateagency.misc.geodata.region;
+package demo.pxportfolio.realestateagency.geodata.region;
 
 import demo.pxportfolio.realestateagency.misc.base.ListEntity;
-import demo.pxportfolio.realestateagency.misc.geodata.city.City;
+import demo.pxportfolio.realestateagency.geodata.city.City;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
@@ -20,7 +21,15 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "regions")
+@Table(
+        name = "regions",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "region_title_uq",
+                        columnNames = "title"
+                )
+        }
+)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -33,7 +42,7 @@ public class Region implements Serializable, ListEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title;
 
     @OneToMany(mappedBy = "region")

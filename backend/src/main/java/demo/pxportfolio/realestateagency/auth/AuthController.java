@@ -1,6 +1,7 @@
 package demo.pxportfolio.realestateagency.auth;
 
 import demo.pxportfolio.realestateagency.auth.jwt.JwtResponseDto;
+import demo.pxportfolio.realestateagency.auth.user.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,5 +24,10 @@ public class AuthController {
     @PostMapping("/register")
     public JwtResponseDto register(@Valid @RequestBody RegisterRequestDto dto) {
         return authService.register(dto);
+    }
+
+    @PostMapping("/reset-password")
+    public Object initPasswordReset(User user) {
+        return authService.initPasswordReset(user);
     }
 }
