@@ -80,11 +80,11 @@ public class AuthService {
 
         String token = UUID.randomUUID().toString();
         LocalDateTime expiration = LocalDateTime.now();
-
-        user.setResetToken(token);
-        user.setResetTokenExpiration(expiration);
-
-        userRepository.save(user);
+//
+//        user.setResetToken(token);
+//        user.setResetTokenExpiration(expiration);
+//
+//        userRepository.save(user);
 
         // Then send an email with a template text with the unique password reset link
 

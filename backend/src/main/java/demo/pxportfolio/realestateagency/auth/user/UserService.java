@@ -19,7 +19,7 @@ public class UserService {
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    private final PropertyService propertyService;
+    // private final PropertyService propertyService;
     private final RoleService roleService;
     private static final String ENTITY_CLASS = User.class.getSimpleName();
     private static final String ADMIN_NAME = "administrator";
@@ -47,7 +47,7 @@ public class UserService {
     public UserDto addToFavourites(Long userId, Long propertyId) {
         User existingUser = this.getUserById(userId);
 
-        existingUser.getFavourites().add(propertyService.getPropertyById(propertyId));
+        // existingUser.getFavourites().add(propertyService.getPropertyById(propertyId));
 
         return modelMapper.map(userRepository.save(existingUser), UserDto.class);
     }

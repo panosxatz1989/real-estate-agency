@@ -50,7 +50,7 @@ public class Role implements Serializable, ListEntity {
     @Column(name = "machine_name", length = 50, nullable = false)
     private String machineName;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "roles_permissions",
             joinColumns = @JoinColumn(

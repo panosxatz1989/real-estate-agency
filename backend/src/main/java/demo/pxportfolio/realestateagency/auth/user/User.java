@@ -98,22 +98,22 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return this.active;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return this.active;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return this.active;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return this.active;
+        return true;
     }
 
     @Override

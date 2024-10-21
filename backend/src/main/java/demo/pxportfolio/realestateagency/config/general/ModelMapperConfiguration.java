@@ -18,24 +18,24 @@ public class ModelMapperConfiguration {
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
 
-        // Set matching strategy to STRICT for better accuracy in nested object mappings
-        modelMapper.getConfiguration()
-                .setMatchingStrategy(MatchingStrategies.STRICT)
-                .setFieldMatchingEnabled(true)
-                .setSkipNullEnabled(true)
-                .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE);
-
-        // Global converter for Set<Role> to Set<RoleDTO>
-        modelMapper.typeMap(User.class, UserDto.class).addMappings(mapper -> {
-            mapper.skip(UserDto::setRoles);  // Skip the default role mapping
-        });
-
-        modelMapper.addConverter(ctx -> {
-            Set<Role> roles = ctx.getSource();
-            return roles != null ? roles.stream()
-                    .map(role -> modelMapper.map(role, RoleDto.class))
-                    .collect(Collectors.toSet()) : null;
-        }, Set.class, Set.class);
+//        // Set matching strategy to STRICT for better accuracy in nested object mappings
+//        modelMapper.getConfiguration()
+//                .setMatchingStrategy(MatchingStrategies.STRICT)
+//                .setFieldMatchingEnabled(true)
+//                .setSkipNullEnabled(true)
+//                .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE);
+//
+//        // Global converter for Set<Role> to Set<RoleDTO>
+//        modelMapper.typeMap(User.class, UserDto.class).addMappings(mapper -> {
+//            mapper.skip(UserDto::setRole);  // Skip the default role mapping
+//        });
+//
+//        modelMapper.addConverter(ctx -> {
+//            Set<Role> roles = ctx.getSource();
+//            return roles != null ? roles.stream()
+//                    .map(role -> modelMapper.map(role, RoleDto.class))
+//                    .collect(Collectors.toSet()) : null;
+//        }, Set.class, Set.class);
 
 //        // Example of additional custom mappings
 //

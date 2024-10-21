@@ -139,13 +139,24 @@ public class Property implements Serializable {
     private Set<Attachment> photos;
 
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
+    @ToString.Exclude
     private Set<PropertyView> views;
 
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
+    @ToString.Exclude
     private Set<Inquiry> inquiries;
 
     @ManyToMany(mappedBy = "favourites", fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Set<User> favourites;
+
+    public void setFavourites(Set<User> favourites) {
+        this.favourites = favourites;
+    }
+
+    public void setInquiries(Set<Inquiry> inquiries) {
+        this.inquiries = inquiries;
+    }
 
     public void setId(Long id) {
         this.id = id;
