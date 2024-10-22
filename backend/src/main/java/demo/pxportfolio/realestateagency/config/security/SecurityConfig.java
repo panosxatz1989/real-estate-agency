@@ -23,7 +23,7 @@ public class SecurityConfig {
     private final JwtFilter jwtFilter;
     private static final String[] WHITE_LIST_URL = {
             "/v1/auth/**",
-            "/database"
+            "/database/**"
     };
 
     @Bean

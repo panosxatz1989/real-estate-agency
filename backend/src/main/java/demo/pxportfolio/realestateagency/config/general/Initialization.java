@@ -1,7 +1,6 @@
 package demo.pxportfolio.realestateagency.config.general;
 
-import demo.pxportfolio.realestateagency.auth.role.Role;
-import demo.pxportfolio.realestateagency.auth.role.RoleRepository;
+import demo.pxportfolio.realestateagency.auth.role.RoleService;
 import demo.pxportfolio.realestateagency.auth.user.User;
 import demo.pxportfolio.realestateagency.auth.user.UserRepository;
 import jakarta.annotation.PostConstruct;
@@ -15,42 +14,43 @@ import java.util.List;
 public class Initialization {
 
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
+    private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
 
     @PostConstruct
     public void init() {
 
-        Role roleAdmin = Role.builder()
-                .id(1L)
-                .title("Administrator")
-                .machineName("admin")
-                .build();
+//        Role roleAdmin = Role.builder()
+//                .id(1L)
+//                .title("Administrator")
+//                .machineName("admin")
+//                .build();
+//
+//        Role roleUser = Role.builder()
+//                .id(2L)
+//                .title("User")
+//                .machineName("user")
+//                .build();
+//
+//        roleRepository.saveAll(List.of(roleAdmin, roleUser));
 
-        Role roleUser = Role.builder()
-                .id(2L)
-                .title("User")
-                .machineName("user")
-                .build();
+//        User admin = User.builder()
+//                .username("administrator")
+//                .password(passwordEncoder.encode("Admin@2024"))
+//                .email("example_admin@gmail.com")
+//                .phone("6972012873")
+//                .role(roleService.getRoleById(1L))
+//                .active(true)
+//                .build();
 
-        roleRepository.saveAll(List.of(roleAdmin, roleUser));
+//        User user = User.builder()
+//                .username("user")
+//                .password(passwordEncoder.encode("User@2024"))
+//                .email("example_user@gmail.com")
+//                .phone("6972012873")
+//                .role(roleUser)
+//                .build();
 
-        User admin = User.builder()
-                .username("administrator")
-                .password(passwordEncoder.encode("Admin@2024"))
-                .email("example_admin@gmail.com")
-                .phone("6972012873")
-                .role(roleAdmin)
-                .build();
-
-        User user = User.builder()
-                .username("user")
-                .password(passwordEncoder.encode("User@2024"))
-                .email("example_user@gmail.com")
-                .phone("6972012873")
-                .role(roleUser)
-                .build();
-
-        userRepository.saveAll(List.of(admin, user));
+//        userRepository.saveAll(List.of(admin));
     }
 }

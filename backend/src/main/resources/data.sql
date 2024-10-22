@@ -1,7 +1,7 @@
 -- ****************************************************************** --
 
 INSERT INTO
-    permissions
+    permissions (`id`, `group`, `sub_group`, `title`)
 VALUES
     (1, 'Auth', 'User', 'View'), (2, 'Listing', 'Property', 'View'),
     (3, 'Listing', 'Property', 'Create'), (4, 'Listing', 'Property', 'Update'),
@@ -10,7 +10,7 @@ VALUES
 -- ****************************************************************** --
 
 INSERT INTO
-    roles
+    roles (`id`, `title`, `machine_name`)
 VALUES
     (1, 'Administrator', 'admin'), (2, 'Anonymous', 'anonymous'),
     (3, 'Agent', 'agent'), (4, 'User', 'user');
@@ -18,7 +18,7 @@ VALUES
 -- ****************************************************************** --
 
 INSERT INTO
-    roles_permissions
+    roles_permissions (`role_id`, `permission_id`)
 VALUES
     (1, 1), (1, 2), (1, 3), (1, 4), (1, 5),
     (2, 2), (3, 2), (3, 3), (3, 4), (3, 5),
@@ -27,7 +27,7 @@ VALUES
 -- ****************************************************************** --
 
 INSERT INTO
-    property_types
+    property_types (`type`)
 VALUES
     ('Διαμέρισμα'), ('Μονοκατοικία'), ('Γεωτεμάχιο'),
     ('Οικόπεδο'), ('Επαγγελματικός Χώρος');
@@ -35,7 +35,7 @@ VALUES
 -- ****************************************************************** --
 
 INSERT INTO
-    floors
+    floors (`id`, `number`, `name`)
 VALUES
     (1, -2, 'Ημιυπόγειο'),
     (2, -1, 'Ισόγειο'),
@@ -49,7 +49,7 @@ VALUES
 -- ****************************************************************** --
 
 INSERT INTO
-    regions
+    regions (`id`, `title`)
 VALUES
     (1, 'Αττική'),
     (2, 'Θεσσαλονίκη'),
@@ -61,7 +61,7 @@ VALUES
 -- ****************************************************************** --
 
 INSERT INTO
-    cities
+    cities (`id`, `title`, `region_id`)
 VALUES
     (1, 'Νέα Φιλαδέλφεια', 1),
     (2, 'Νέα Χαλκηδόνα', 1),
