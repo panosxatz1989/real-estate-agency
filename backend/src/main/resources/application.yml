@@ -58,3 +58,10 @@ app:
           not-null: Please provide the agent that manages the property.
         attributes:
           not-null: Please provide some information about the property.
+      notification:
+        subject:
+          not-null: Please provide a notification subject.
+        body:
+          not-blank: Please provide a notification body.
+        users:
+          not-null: Please provide a list of users that will receive the notifications.

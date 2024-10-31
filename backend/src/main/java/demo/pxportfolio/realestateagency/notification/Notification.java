@@ -1,4 +1,4 @@
-package demo.pxportfolio.realestateagency.misc.notification;
+package demo.pxportfolio.realestateagency.notification;
 
 import demo.pxportfolio.realestateagency.auth.user.User;
 import jakarta.persistence.*;
@@ -34,15 +34,6 @@ public class Notification implements Serializable {
 
     @Column(name = "body", length = 4000, nullable = false)
     private String body;
-
-    @ManyToOne
-    @JoinColumn(
-            name = "receiver",
-            foreignKey = @ForeignKey(
-                    name = "notifications_to_users_fk"
-            )
-    )
-    private User receiver;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

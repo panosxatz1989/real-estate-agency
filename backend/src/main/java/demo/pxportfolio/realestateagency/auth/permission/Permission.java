@@ -54,7 +54,7 @@ public class Permission implements Serializable, GrantedAuthority, ListEntity {
 
     @Override
     public String getAuthority() {
-        return String.join("_", this.group, this.subGroup, this.title).toLowerCase();
+        return String.join(":", this.group, this.subGroup, this.title).toLowerCase();
     }
 
     @ManyToMany(mappedBy = "permissions")

@@ -2,12 +2,18 @@ package demo.pxportfolio.realestateagency.auth.user;
 
 import demo.pxportfolio.realestateagency.auth.role.Role;
 import demo.pxportfolio.realestateagency.property.Property;
-import jakarta.persistence.*;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Objects;
-import java.util.Set;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,6 +23,10 @@ import lombok.ToString;
 import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(

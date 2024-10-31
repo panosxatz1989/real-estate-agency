@@ -1,4 +1,4 @@
-package demo.pxportfolio.realestateagency.misc.notification;
+package demo.pxportfolio.realestateagency.notification;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

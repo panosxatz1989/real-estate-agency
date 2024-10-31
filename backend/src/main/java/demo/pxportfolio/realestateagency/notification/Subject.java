@@ -1,4 +1,4 @@
-package demo.pxportfolio.realestateagency.misc.notification;
+package demo.pxportfolio.realestateagency.notification;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
