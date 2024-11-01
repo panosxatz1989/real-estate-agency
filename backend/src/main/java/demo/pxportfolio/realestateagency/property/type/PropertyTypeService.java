@@ -3,7 +3,6 @@ package demo.pxportfolio.realestateagency.property.type;
 import demo.pxportfolio.realestateagency.config.exception.EntityNotFoundException;
 import demo.pxportfolio.realestateagency.misc.base.ListDto;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +21,7 @@ public class PropertyTypeService {
         return propertyTypeRepository.findAll()
                 .stream()
                 .map(ListDto::new)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public PropertyType getPropertyTypeById(Long id) {

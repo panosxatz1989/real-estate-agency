@@ -17,19 +17,19 @@ public class PermissionController {
     private final PermissionService permissionService;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('auth_permission_view')")
+    @PreAuthorize("hasAuthority('admin:permission:view')")
     public List<Permission> getAllPermissions() {
         return permissionService.getAllPermissions();
     }
 
     @GetMapping("/list")
-    @PreAuthorize("hasAuthority('auth_permission_view')")
+    @PreAuthorize("hasAuthority('admin:permission:view')")
     public List<ListDto> getAllPermissionsList() {
         return permissionService.getAllPermissionsList();
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('auth_permission_view')")
+    @PreAuthorize("hasAuthority('admin:permission:view')")
     public Permission getPermissionById(@PathVariable Long id) {
         return permissionService.getPermissionById(id);
     }

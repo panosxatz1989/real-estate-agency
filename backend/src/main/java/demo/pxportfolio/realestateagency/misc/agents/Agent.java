@@ -42,6 +42,7 @@ public class Agent implements Serializable, ListEntity {
     @OneToOne
     @JoinColumn(
             name = "user_id",
+            nullable = false,
             foreignKey = @ForeignKey(
                     name = "agents_to_users_fk"
             )

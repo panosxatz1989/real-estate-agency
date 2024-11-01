@@ -43,18 +43,18 @@ public class Permission implements Serializable, GrantedAuthority, ListEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "`group`", length = 100, nullable = false)
-    private String group;
+    @Column(name = "resource", length = 100, nullable = false)
+    private String resource;
 
-    @Column(name = "sub_group", length = 100, nullable = false)
-    private String subGroup;
+    @Column(name = "action", length = 100, nullable = false)
+    private String action;
 
-    @Column(name = "title", length = 100, nullable = false)
-    private String title;
+    @Column(name = "role", length = 50, nullable = false)
+    private String role;
 
     @Override
     public String getAuthority() {
-        return String.join(":", this.group, this.subGroup, this.title).toLowerCase();
+        return String.join(":", this.role, this.resource, this.action).toLowerCase();
     }
 
     @ManyToMany(mappedBy = "permissions")
