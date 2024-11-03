@@ -5,6 +5,7 @@ import demo.pxportfolio.realestateagency.misc.agents.Agent;
 import demo.pxportfolio.realestateagency.misc.attachment.Attachment;
 import demo.pxportfolio.realestateagency.geodata.location.Location;
 import demo.pxportfolio.realestateagency.property.floor.Floor;
+import demo.pxportfolio.realestateagency.property.heating.HeatingMethod;
 import demo.pxportfolio.realestateagency.property.inquiry.Inquiry;
 import demo.pxportfolio.realestateagency.property.type.PropertyType;
 import demo.pxportfolio.realestateagency.property.view.PropertyView;
@@ -14,19 +15,25 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "properties")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @ToString
 @Builder
 public class Property implements Serializable {
@@ -54,7 +61,7 @@ public class Property implements Serializable {
     @Column(name = "is_negotiable", nullable = false)
     private Boolean isNegotiable;
 
-    @Column(name = "area", nullable = false, precision = 4, scale = 2)
+    @Column(name = "area", nullable = false, precision = 6, scale = 2)
     private BigDecimal area;
 
     @ManyToOne
@@ -66,20 +73,39 @@ public class Property implements Serializable {
     )
     private Floor floor;
 
+    @ManyToOne
+    @JoinColumn(
+            name = "heating_method_id",
+            foreignKey = @ForeignKey(
+                    name = "properties_to_heating_methods_fk"
+            )
+    )
+    private HeatingMethod heatingMethod;
+
     @Column(name = "rooms")
     private Integer rooms;
 
     @Column(name = "year_of_construction")
     private Integer yearOfConstruction;
 
-    @CreationTimestamp
+    @Column(name = "has_parking")
+    private Boolean hasParking;
+
+    @Column(name = "baths")
+    private Integer baths;
+
+    @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
+    @Setter(AccessLevel.NONE)
     private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(
             name = "location_id",
-            referencedColumnName = "id",
             foreignKey = @ForeignKey(
                     name = "properties_to_locations_fk"
             )
@@ -149,66 +175,6 @@ public class Property implements Serializable {
     @ManyToMany(mappedBy = "favourites", fetch = FetchType.LAZY)
     @ToString.Exclude
     private Set<User> favourites;
-
-    public void setFavourites(Set<User> favourites) {
-        this.favourites = favourites;
-    }
-
-    public void setInquiries(Set<Inquiry> inquiries) {
-        this.inquiries = inquiries;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setOriginalPrice(BigDecimal originalPrice) {
-        this.originalPrice = originalPrice;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public void setPropertyType(PropertyType propertyType) {
-        this.propertyType = propertyType;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public void setNegotiable(Boolean negotiable) {
-        isNegotiable = negotiable;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public void setAgent(Agent agent) {
-        this.agent = agent;
-    }
-
-    public void setPhotos(Set<Attachment> photos) {
-        this.photos = photos;
-    }
-
-    public void setViews(Set<PropertyView> views) {
-        this.views = views;
-    }
 
     @Override
     public boolean equals(Object o) {

@@ -1,17 +1,13 @@
-package demo.pxportfolio.realestateagency.notification;
+package demo.pxportfolio.realestateagency.testimonial;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,39 +18,38 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "notifications")
-@AllArgsConstructor
+@Table(name = "testimonials")
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @ToString
-@Builder
-public class Notification implements Serializable {
+public class Testimonial implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "subject", length = 200, nullable = false)
-    private Subject subject;
+    @Column(name = "text", nullable = false)
+    private String text;
 
-    @Column(name = "body", length = 4000, nullable = false)
-    private String body;
+    @Column(name = "rating", nullable = false)
+    private Integer rating;
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
-    @Setter(AccessLevel.NONE)
     private LocalDateTime createdAt;
+
+    @Column(name = "is_approved", nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private Boolean isApproved = false;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Notification that = (Notification) o;
+        Testimonial that = (Testimonial) o;
         return Objects.equals(id, that.id);
     }
 
