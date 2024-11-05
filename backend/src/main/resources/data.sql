@@ -77,9 +77,29 @@ VALUES
     (12, 'Ηράκλειο Κρήτης', 6),
     (13, 'Χανιά', 6);
 
+-- ****************************************************************** --
+
+INSERT INTO
+    attributes (`id`, `title`, `machine_name`, `metric_unit`, `has_restricted_values`)
+VALUES
+    (1, 'Όροφος', 'floor', NULL, FALSE),
+    (2, 'Υπνοδωμάτια', 'bedrooms', NULL, FALSE),
+    (3, 'Μέσα θέρμανσης', 'heating_methods', NULL, TRUE),
+    (4, 'Εμβαδό', 'area', 'τμ', FALSE),
+    (5, 'Έτος Κατασκευής', NULL, FALSE);
 
 
+-- ****************************************************************** --
 
+INSERT INTO
+    attribute_possible_values (`id`, `attribute_id`, `possible_value`)
+VALUES
+    (1, 1, '0'), (2, 1, '1'), (3, 1, '2'), (4, 1, '3'), (5, 1, '4'),
+    (6, 1, '5'), (7, 3, 'Καλοριφέρ'), (8, 3, 'Air Condition'), (9, 3, 'Τζάκι');
 
+-- ****************************************************************** --
 
-
+INSERT INTO
+    property_type_available_attributes (`property_type_id`, `attribute_id`)
+VALUES
+    (1, 1), (1, 2), (1, 3), (1, 4), (3, 4), (4, 4);

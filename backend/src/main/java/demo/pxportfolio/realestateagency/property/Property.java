@@ -73,14 +73,26 @@ public class Property implements Serializable {
     )
     private Floor floor;
 
-    @ManyToOne
-    @JoinColumn(
-            name = "heating_method_id",
-            foreignKey = @ForeignKey(
-                    name = "properties_to_heating_methods_fk"
+    @ManyToMany
+    @JoinTable(
+            name = "properties_heating_methods",
+            joinColumns = @JoinColumn(
+                    name = "property_id",
+                    foreignKey = @ForeignKey(
+                            name = "properties_heating_methods_to_properties_fk"
+                    )
+
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "heating_method_id",
+                    foreignKey = @ForeignKey(
+                            name = "properties_heating_methods_to_heating_methods_fk"
+                    )
+
             )
     )
-    private HeatingMethod heatingMethod;
+    @ToString.Exclude
+    private Set<HeatingMethod> heatingMethods;
 
     @Column(name = "rooms")
     private Integer rooms;
@@ -171,10 +183,6 @@ public class Property implements Serializable {
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
     @ToString.Exclude
     private Set<Inquiry> inquiries;
-
-    @ManyToMany(mappedBy = "favourites", fetch = FetchType.LAZY)
-    @ToString.Exclude
-    private Set<User> favourites;
 
     @Override
     public boolean equals(Object o) {
