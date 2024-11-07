@@ -1,7 +1,7 @@
 -- ****************************************************************** --
 
 INSERT INTO
-    permissions (`id`, `group`, `sub_group`, `title`)
+    permissions (`id`, `resource`, `action`, `role`)
 VALUES
     (1, 'Auth', 'User', 'View'), (2, 'Listing', 'Property', 'View'),
     (3, 'Listing', 'Property', 'Create'), (4, 'Listing', 'Property', 'Update'),
@@ -86,7 +86,7 @@ VALUES
     (2, 'Υπνοδωμάτια', 'bedrooms', NULL, FALSE),
     (3, 'Μέσα θέρμανσης', 'heating_methods', NULL, TRUE),
     (4, 'Εμβαδό', 'area', 'τμ', FALSE),
-    (5, 'Έτος Κατασκευής', NULL, FALSE);
+    (5, 'Έτος Κατασκευής', 'constructed_at', NULL, FALSE);
 
 
 -- ****************************************************************** --

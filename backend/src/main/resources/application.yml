@@ -65,3 +65,11 @@ app:
           not-blank: Please provide a notification body.
         users:
           not-null: Please provide a list of users that will receive the notifications.
+      testimonial:
+        text:
+          size: Text must be 500 characters maximum.
+        rating:
+          size: Rating must be between 0 and 5.
+          not-null: Please provide a rating.
+        author:
+          not-null: Please provide an author.

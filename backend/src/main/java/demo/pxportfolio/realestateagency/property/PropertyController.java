@@ -35,9 +35,9 @@ public class PropertyController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('listing_property_view')")
-    public Property getPropertyById(@PathVariable Long id) {
-        return propertyService.getPropertyById(id);
+    @PreAuthorize("hasAnyAuthority('user:property:view', 'admin:property:view', 'agent:property:view')")
+    public Property getPropertyById(@AuthenticationPrincipal User user, @PathVariable Long id) {
+        return propertyService.getPropertyById(user, id);
     }
 
     @PostMapping

@@ -14,6 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,13 +33,14 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
+@Builder
 public class Testimonial implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "text", nullable = false)
+    @Column(name = "text", length = 500)
     private String text;
 
     @Column(name = "rating", nullable = false)

@@ -4,6 +4,7 @@ import demo.pxportfolio.realestateagency.auth.user.User;
 import demo.pxportfolio.realestateagency.property.Property;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,23 +12,27 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Objects;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.CreationTimestamp;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Objects;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "views")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
+@Builder
 public class PropertyView implements Serializable {
 
     @Id
@@ -52,7 +57,7 @@ public class PropertyView implements Serializable {
     )
     private Property property;
 
-    @CreationTimestamp
+    @CreatedDate
     @Column(name = "viewed_at", nullable = false, updatable = false)
     private LocalDateTime viewedAt;
 

@@ -1,8 +1,6 @@
 package demo.pxportfolio.realestateagency.auth.user;
 
-import demo.pxportfolio.realestateagency.property.Property;
 import jakarta.validation.Valid;
-import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,17 +35,5 @@ public class UserController {
     @PreAuthorize("hasAuthority('admin:user:create')")
     public UserDto createUser(@Valid @RequestBody UserDto dto) {
         return null;
-    }
-
-    @PostMapping("/{id}/favourites")
-    @PreAuthorize("hasAuthority('user:favourite:create')")
-    public UserDto addToFavourites(@PathVariable Long id, @RequestBody Long propertyId) {
-        return userService.addToFavourites(id, propertyId);
-    }
-
-    @GetMapping("/{id}/favourites")
-    @PreAuthorize("hasAuthority('user:favourite:view')")
-    public Set<Property> getAllFavourites(@PathVariable Long id) {
-        return userService.getAllFavourites(id);
     }
 }

@@ -35,7 +35,7 @@ public class Attribute implements Serializable {
     @Column(name = "machine_name", length = 50, nullable = false)
     private String machineName;
 
-    @Column(name = "metric_unit", length = 50, nullable = false)
+    @Column(name = "metric_unit", length = 50)
     private String metricUnit;
 
     @Column(name = "has_restricted_values", nullable = false)

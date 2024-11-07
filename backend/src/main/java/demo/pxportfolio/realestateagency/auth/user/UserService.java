@@ -44,18 +44,6 @@ public class UserService {
                 .map(u -> modelMapper.map(u, UserDto.class));
     }
 
-    public UserDto addToFavourites(Long userId, Long propertyId) {
-        User existingUser = this.getUserById(userId);
-
-        // existingUser.getFavourites().add(propertyService.getPropertyById(propertyId));
-
-        return modelMapper.map(userRepository.save(existingUser), UserDto.class);
-    }
-
-    public Set<Property> getAllFavourites(Long userId) {
-        return this.getUserById(userId).getFavourites();
-    }
-
     public Boolean isAdmin(User user) {
         return user.getRole()
                 .getMachineName()

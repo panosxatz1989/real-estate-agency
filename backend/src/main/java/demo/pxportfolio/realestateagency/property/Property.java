@@ -4,6 +4,7 @@ import demo.pxportfolio.realestateagency.auth.user.User;
 import demo.pxportfolio.realestateagency.misc.agents.Agent;
 import demo.pxportfolio.realestateagency.misc.attachment.Attachment;
 import demo.pxportfolio.realestateagency.geodata.location.Location;
+import demo.pxportfolio.realestateagency.property.attribute.property.PropertyAttribute;
 import demo.pxportfolio.realestateagency.property.floor.Floor;
 import demo.pxportfolio.realestateagency.property.heating.HeatingMethod;
 import demo.pxportfolio.realestateagency.property.inquiry.Inquiry;
@@ -183,6 +184,10 @@ public class Property implements Serializable {
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
     @ToString.Exclude
     private Set<Inquiry> inquiries;
+
+    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private Set<PropertyAttribute> attributes;
 
     @Override
     public boolean equals(Object o) {

@@ -7,6 +7,8 @@ import demo.pxportfolio.realestateagency.geodata.location.LocationService;
 import demo.pxportfolio.realestateagency.misc.agents.AgentService;
 import demo.pxportfolio.realestateagency.misc.attachment.AttachmentService;
 import demo.pxportfolio.realestateagency.property.type.PropertyTypeService;
+import demo.pxportfolio.realestateagency.property.view.PropertyViewCreationDto;
+import demo.pxportfolio.realestateagency.property.view.PropertyViewService;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,6 +23,7 @@ public class PropertyService {
     private final AgentService agentService;
     private final UserService userService;
     private final PropertyTypeService propertyTypeService;
+    // private final PropertyViewService propertyViewService;
     private final AttachmentService attachmentService;
     private final LocationService locationService;
     private final PropertySpecification propertySpecification;
@@ -30,10 +33,26 @@ public class PropertyService {
         return propertyRepository.findAll(propertySpecification.getProperties(filter), pageable);
     }
 
+    public Property getPropertyById(User user, Long id) {
+        Property property = this.getPropertyById(id);
+
+//        if (user.getRole().getMachineName().equals("user")) {
+//            propertyViewService.createPropertyView(
+//                    PropertyViewCreationDto.builder()
+//                            .userId(user.getId())
+//                            .propertyId(id)
+//                            .build()
+//            );
+//        }
+
+        return property;
+    }
+
     public Property getPropertyById(Long id) {
         return propertyRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(ENTITY_CLASS, id.toString()));
     }
+
 
     public Property createProperty(PropertyRequestDto dto) {
 
