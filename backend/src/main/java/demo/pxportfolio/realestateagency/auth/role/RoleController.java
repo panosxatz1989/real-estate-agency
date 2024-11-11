@@ -1,4 +1,4 @@
-package demo.pxportfolio.realestateagency.property.floor;
+package demo.pxportfolio.realestateagency.auth.role;
 
 import demo.pxportfolio.realestateagency.misc.base.KeyValueDto;
 import java.util.List;
@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/v1/floors")
+@RequestMapping("/v1/roles")
 @RequiredArgsConstructor
-public class FloorController {
+public class RoleController {
 
-    private final FloorService floorService;
+    private final RoleService roleService;
 
     @GetMapping("/list")
-    public List<KeyValueDto> getAllFloorsList() {
-        return floorService.getAllFloorsList();
+    public List<KeyValueDto> getAllRolesList() {
+        return roleService.getAllRolesList();
     }
 }

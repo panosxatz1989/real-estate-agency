@@ -2,8 +2,12 @@ package demo.pxportfolio.realestateagency.config.exception;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -23,5 +27,38 @@ public class GlobalExceptionHandler {
         );
 
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler({
+            MethodArgumentNotValidException.class
+    })
+    public ResponseEntity<ApiError> handleValidationException(MethodArgumentNotValidException ex) {
+        List<ApiFieldError> errors = ex.getBindingResult()
+                .getAllErrors()
+                .stream()
+                .map(this::convertFieldErrors)
+                .toList();
+
+        ApiError error = new ApiError(
+                HttpStatus.BAD_REQUEST.value(),
+                LocalDateTime.now(),
+                ErrorType.VALIDATION_FAIL,
+                ex.getLocalizedMessage(),
+                errors
+        );
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    public ApiFieldError convertFieldErrors(ObjectError error) {
+        if (error == null) return ApiFieldError.builder().build();
+
+        String fieldName = ((FieldError) error).getField();
+        String errorMessage = error.getDefaultMessage();
+
+        return ApiFieldError.builder()
+                .fieldName(fieldName)
+                .message(errorMessage)
+                .build();
     }
 }

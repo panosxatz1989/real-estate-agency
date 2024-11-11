@@ -1,6 +1,6 @@
 package demo.pxportfolio.realestateagency.property.floor;
 
-import demo.pxportfolio.realestateagency.misc.base.ListDto;
+import demo.pxportfolio.realestateagency.misc.base.KeyValueDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,10 +11,10 @@ public class FloorService {
 
     private final FloorRepository floorRepository;
 
-    public List<ListDto> getAllFloorsList() {
+    public List<KeyValueDto> getAllFloorsList() {
         return floorRepository.findAll()
                 .stream()
-                .map(ListDto::new)
+                .map(KeyValueDto::new)
                 .toList();
     }
 }

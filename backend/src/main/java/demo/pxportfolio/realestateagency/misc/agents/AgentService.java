@@ -1,7 +1,7 @@
 package demo.pxportfolio.realestateagency.misc.agents;
 
 import demo.pxportfolio.realestateagency.config.exception.EntityNotFoundException;
-import demo.pxportfolio.realestateagency.misc.base.ListDto;
+import demo.pxportfolio.realestateagency.misc.base.KeyValueDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,10 +22,10 @@ public class AgentService {
                 .orElseThrow(() -> new EntityNotFoundException(ENTITY_CLASS, id.toString()));
     }
 
-    public List<ListDto> getAllAgentsList() {
+    public List<KeyValueDto> getAllAgentsList() {
         return agentRepository.findAll()
                 .stream()
-                .map(ListDto::new)
+                .map(KeyValueDto::new)
                 .toList();
     }
 }

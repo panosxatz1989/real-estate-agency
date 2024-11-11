@@ -1,6 +1,6 @@
 package demo.pxportfolio.realestateagency.geodata.city;
 
-import demo.pxportfolio.realestateagency.misc.base.ListDto;
+import demo.pxportfolio.realestateagency.misc.base.KeyValueDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,10 +15,10 @@ public class CityService {
         return cityRepository.findAllByTitleIncludes(title.toUpperCase());
     }
 
-    public List<ListDto> getAllCitiesList() {
+    public List<KeyValueDto> getAllCitiesList() {
         return cityRepository.findAll()
                 .stream()
-                .map(ListDto::new)
+                .map(KeyValueDto::new)
                 .toList();
     }
 }

@@ -4,6 +4,7 @@ import demo.pxportfolio.realestateagency.auth.user.User;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,14 +12,16 @@ import org.springframework.stereotype.Service;
 public class TokenService {
 
     private final TokenRepository tokenRepository;
-    private static final Integer TOKEN_DURATION = 1;
+
+    @Value("${app.security.in-app-token.duration}")
+    private Integer tokenDuration;
 
     public Token createToken(Long userId) {
         Token token = Token.builder()
                 .user(User.builder().id(userId).build())
                 .token(UUID.randomUUID().toString())
                 .requestedAt(LocalDateTime.now())
-                .tokenExpiration(LocalDateTime.now().plusDays(TOKEN_DURATION))
+                .tokenExpiration(LocalDateTime.now().plusDays(tokenDuration))
                 .build();
         return tokenRepository.save(token);
     }

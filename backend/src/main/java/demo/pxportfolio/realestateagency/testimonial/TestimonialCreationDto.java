@@ -15,15 +15,15 @@ import lombok.NoArgsConstructor;
 @Builder
 public class TestimonialCreationDto {
 
-    @Size(max = 500, message = "{app.messages.validation.testimonial.text.size}")
+    @Size(max = 500, message = "{validation.testimonial.text.size}")
     private String text;
 
-    @NotNull(message = "{app.messages.validation.testimonial.rating.not-null}")
-    @Min(value = 0, message = "{app.messages.validation.testimonial.rating.size}")
-    @Max(value = 5, message = "{app.messages.validation.testimonial.rating.size}")
+    @NotNull(message = "{validation.testimonial.rating.not-null}")
+    @Min(value = 0, message = "{validation.testimonial.rating.size}")
+    @Max(value = 5, message = "{validation.testimonial.rating.size}")
     private Integer rating;
 
-    @NotNull(message = "{app.messages.validation.testimonial.author.not-null}")
+    @NotNull(message = "{validation.testimonial.author.not-null}")
     private Long authorId;
 
     private Boolean isApproved;

@@ -1,18 +1,21 @@
 -- ****************************************************************** --
 
 INSERT INTO
-    permissions (`id`, `resource`, `action`, `role`)
+    permissions (`id`, `role`, `resource`, `action`)
 VALUES
-    (1, 'Auth', 'User', 'View'), (2, 'Listing', 'Property', 'View'),
-    (3, 'Listing', 'Property', 'Create'), (4, 'Listing', 'Property', 'Update'),
-    (5, 'Listing', 'Property', 'Delete');
+
+    (1, 'User', 'View'), (2, 'User', 'Create'), (3, 'User', 'Delete'), (4, 'User', 'Update'),
+    (5, 'Agent', 'View'), (6, 'Agent', 'Create'), (7, 'Agent', 'Delete'), (8, 'Agent', 'Update'),
+    (9, 'Property', 'View'), (10, 'Property', 'Create'), (11, 'Property', 'Delete'), (12, 'Property', 'Update'),
+    (13, 'Role', 'View'), (14, 'Permission', 'View'), (15, 'Property_Type', 'View'),
+    (16, 'Inquiry', 'View'), (17, 'Inquiry', 'Create'), (18, 'Inquiry', 'Delete'), (19, 'Inquiry', 'Update');
 
 -- ****************************************************************** --
 
 INSERT INTO
     roles (`id`, `title`, `machine_name`)
 VALUES
-    (1, 'Administrator', 'admin'), (2, 'Anonymous', 'anonymous'),
+    (1, 'Administrator', 'admin'), (2, 'Guest', 'guest'),
     (3, 'Agent', 'agent'), (4, 'User', 'user');
 
 -- ****************************************************************** --

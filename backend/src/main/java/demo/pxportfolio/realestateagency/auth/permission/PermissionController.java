@@ -1,6 +1,6 @@
 package demo.pxportfolio.realestateagency.auth.permission;
 
-import demo.pxportfolio.realestateagency.misc.base.ListDto;
+import demo.pxportfolio.realestateagency.misc.base.KeyValueDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,19 +17,19 @@ public class PermissionController {
     private final PermissionService permissionService;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('admin:permission:view')")
+    @PreAuthorize("hasAuthority('permission:view')")
     public List<Permission> getAllPermissions() {
         return permissionService.getAllPermissions();
     }
 
     @GetMapping("/list")
-    @PreAuthorize("hasAuthority('admin:permission:view')")
-    public List<ListDto> getAllPermissionsList() {
+    @PreAuthorize("hasAuthority('permission:view')")
+    public List<KeyValueDto> getAllPermissionsList() {
         return permissionService.getAllPermissionsList();
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('admin:permission:view')")
+    @PreAuthorize("hasAuthority('permission:view')")
     public Permission getPermissionById(@PathVariable Long id) {
         return permissionService.getPermissionById(id);
     }

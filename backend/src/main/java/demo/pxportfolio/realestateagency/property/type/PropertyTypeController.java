@@ -1,9 +1,8 @@
 package demo.pxportfolio.realestateagency.property.type;
 
-import demo.pxportfolio.realestateagency.misc.base.ListDto;
+import demo.pxportfolio.realestateagency.misc.base.KeyValueDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,19 +16,17 @@ public class PropertyTypeController {
     private final PropertyTypeService propertyTypeService;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('listing_type_view')")
     public List<PropertyType> getAllPropertyTypes() {
         return propertyTypeService.getAllPropertyTypes();
     }
 
-    @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('listing_type_view')")
-    public PropertyType getPropertyTypeById(@PathVariable Long id) {
-        return propertyTypeService.getPropertyTypeById(id);
+    @GetMapping("/list")
+    public List<KeyValueDto> getAllPropertyTypesList() {
+        return propertyTypeService.getAllPropertyTypesList();
     }
 
-    @GetMapping("/list")
-    public List<ListDto> getAllPropertyTypesList() {
-        return propertyTypeService.getAllPropertyTypesList();
+    @GetMapping("/{id}")
+    public PropertyType getPropertyTypeById(@PathVariable Long id) {
+        return propertyTypeService.getPropertyTypeById(id);
     }
 }

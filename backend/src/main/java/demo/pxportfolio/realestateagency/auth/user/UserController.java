@@ -20,19 +20,19 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('admin:user:view', 'user:user:view')")
+    @PreAuthorize("hasAnyAuthority('user:view', 'user:view')")
     public UserDto getUserById(@PathVariable Long id) {
         return userService.getUserDtoById(id);
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('admin:user:view')")
+    @PreAuthorize("hasAuthority('user:view')")
     public Page<UserDto> getAllUsers(Pageable pageable) {
         return userService.getAllUsers(pageable);
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('admin:user:create')")
+    @PreAuthorize("hasAuthority('user:create')")
     public UserDto createUser(@Valid @RequestBody UserDto dto) {
         return null;
     }

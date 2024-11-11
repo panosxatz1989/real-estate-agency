@@ -30,4 +30,6 @@ public class AuthController {
     public Object initPasswordReset(User user) {
         return authService.initPasswordReset(user);
     }
+
+    // TODO - Missing reset password init and finish
 }

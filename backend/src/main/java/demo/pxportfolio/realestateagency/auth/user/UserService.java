@@ -1,15 +1,10 @@
 package demo.pxportfolio.realestateagency.auth.user;
 
-import demo.pxportfolio.realestateagency.auth.role.RoleService;
 import demo.pxportfolio.realestateagency.config.exception.EntityNotFoundException;
-import demo.pxportfolio.realestateagency.property.Property;
-import demo.pxportfolio.realestateagency.property.PropertyService;
-import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,10 +12,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final ModelMapper modelMapper;
-    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    // private final PropertyService propertyService;
-    private final RoleService roleService;
     private static final String ENTITY_CLASS = User.class.getSimpleName();
     private static final String ADMIN_NAME = "administrator";
 

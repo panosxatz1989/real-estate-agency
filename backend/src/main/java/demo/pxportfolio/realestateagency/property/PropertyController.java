@@ -29,20 +29,20 @@ public class PropertyController {
     private final PropertyService propertyService;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('listing_property_view')")
+    @PreAuthorize("hasAnyAuthority('property:view')")
     public Page<Property> getAllProperties(PropertyFilterDto filter, Pageable pageable) {
         return propertyService.getAllProperties(filter, pageable);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('user:property:view', 'admin:property:view', 'agent:property:view')")
+    @PreAuthorize("hasAnyAuthority('property:view')")
     public Property getPropertyById(@AuthenticationPrincipal User user, @PathVariable Long id) {
         return propertyService.getPropertyById(user, id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasAuthority('listing_property_create')")
+    @PreAuthorize("hasAuthority('property:create')")
     public ResponseEntity<Property> createProperty(@Valid @RequestBody PropertyRequestDto dto) {
         Property property = propertyService.createProperty(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -53,14 +53,14 @@ public class PropertyController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('listing_property_update')")
+    @PreAuthorize("hasAuthority('property:update')")
     public Property updateProperty() {
         return null;
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasAuthority('listing_property_delete')")
+    @PreAuthorize("hasAnyAuthority('property:delete')")
     public ResponseEntity<Void> deletePropertyById(@PathVariable Long id, @AuthenticationPrincipal User user) {
         propertyService.deletePropertyById(id, user);
         return ResponseEntity.noContent().build();

@@ -23,7 +23,7 @@ public class PropertyService {
     private final AgentService agentService;
     private final UserService userService;
     private final PropertyTypeService propertyTypeService;
-    // private final PropertyViewService propertyViewService;
+    private final PropertyViewService propertyViewService;
     private final AttachmentService attachmentService;
     private final LocationService locationService;
     private final PropertySpecification propertySpecification;
@@ -36,14 +36,14 @@ public class PropertyService {
     public Property getPropertyById(User user, Long id) {
         Property property = this.getPropertyById(id);
 
-//        if (user.getRole().getMachineName().equals("user")) {
-//            propertyViewService.createPropertyView(
-//                    PropertyViewCreationDto.builder()
-//                            .userId(user.getId())
-//                            .propertyId(id)
-//                            .build()
-//            );
-//        }
+        if (user.getRole().getMachineName().equals("user")) {
+            propertyViewService.createPropertyView(
+                    PropertyViewCreationDto.builder()
+                            .userId(user.getId())
+                            .propertyId(id)
+                            .build()
+            );
+        }
 
         return property;
     }

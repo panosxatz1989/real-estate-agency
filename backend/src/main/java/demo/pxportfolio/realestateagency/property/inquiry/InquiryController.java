@@ -58,7 +58,7 @@ public class InquiryController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasAuthority('listing_inquiry_delete')")
+    @PreAuthorize("hasAnyAuthority('inquiry:delete')")
     public ResponseEntity<Void> deleteInquiryById(@PathVariable Long id, @AuthenticationPrincipal User user) {
         inquiryService.deleteInquiryById(id, user);
         return ResponseEntity.noContent().build();

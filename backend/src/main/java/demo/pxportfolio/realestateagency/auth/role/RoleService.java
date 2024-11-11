@@ -1,7 +1,7 @@
 package demo.pxportfolio.realestateagency.auth.role;
 
 import demo.pxportfolio.realestateagency.config.exception.EntityNotFoundException;
-import demo.pxportfolio.realestateagency.misc.base.ListDto;
+import demo.pxportfolio.realestateagency.misc.base.KeyValueDto;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -14,10 +14,10 @@ public class RoleService {
     private final RoleRepository roleRepository;
     private static final String ENTITY_CLASS = Role.class.getSimpleName();
 
-    public List<ListDto> getAllRolesList() {
+    public List<KeyValueDto> getAllRolesList() {
         return roleRepository.findAll()
                 .stream()
-                .map(ListDto::new)
+                .map(KeyValueDto::new)
                 .collect(Collectors.toList());
     }
 

@@ -17,17 +17,17 @@ import lombok.NoArgsConstructor;
 @Builder
 public class PropertyRequestDto {
 
-    @NotBlank(message = "{app.messages.validation.property.title.not-blank}")
-    @Size(max = 500, message = "{app.messages.validation.property.title.size}")
+    @NotBlank(message = "{validation.property.title.not-blank}")
+    @Size(max = 500, message = "{validation.property.title.size}")
     private String title;
 
-    @Size(max = 4000, message = "{app.messages.validation.property.description.size}")
+    @Size(max = 4000, message = "{validation.property.description.size}")
     private String description;
 
     @NotNull(message = "")
     private ListingType listingType;
 
-    @NotNull(message = "{app.messages.validation.property.price.not-null}")
+    @NotNull(message = "{validation.property.price.not-null}")
     private BigDecimal originalPrice;
 
     private BigDecimal price = originalPrice;
@@ -40,13 +40,13 @@ public class PropertyRequestDto {
 
     private Integer yearOfConstruction;
 
-    @NotNull(message = "{app.messages.validation.property.type.not-null}")
+    @NotNull(message = "{validation.property.type.not-null}")
     private Long propertyTypeId;
 
-    @NotNull(message = "{app.messages.validation.property.author.not-null}")
+    @NotNull(message = "{validation.property.author.not-null}")
     private Long authorId;
 
-    @NotNull(message = "{app.messages.validation.property.agent.not-null}")
+    @NotNull(message = "{validation.property.agent.not-null}")
     private Long agentId;
 
     private List<Long> attachmentIds;

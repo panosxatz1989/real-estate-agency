@@ -1,6 +1,6 @@
 package demo.pxportfolio.realestateagency.property.heating;
 
-import demo.pxportfolio.realestateagency.misc.base.ListDto;
+import demo.pxportfolio.realestateagency.misc.base.KeyValueDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,7 @@ public class HeatingMethodController {
     private final HeatingMethodService heatingMethodService;
 
     @GetMapping("/list")
-    public List<ListDto> getAllHeatingMethodsList() {
+    public List<KeyValueDto> getAllHeatingMethodsList() {
         return heatingMethodService.getAllHeatingMethodsList();
     }
 }

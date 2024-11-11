@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class ListDto {
+public class KeyValueDto {
 
     private String key;
     private String value;
 
-    public ListDto(ListEntity entity) {
+    public KeyValueDto(ListEntity entity) {
         this.key = entity.getKey().toString();
         this.value = entity.getValue();
     }

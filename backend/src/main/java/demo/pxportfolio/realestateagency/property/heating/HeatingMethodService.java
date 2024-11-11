@@ -1,6 +1,6 @@
 package demo.pxportfolio.realestateagency.property.heating;
 
-import demo.pxportfolio.realestateagency.misc.base.ListDto;
+import demo.pxportfolio.realestateagency.misc.base.KeyValueDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -11,10 +11,10 @@ public class HeatingMethodService {
 
     private final HeatingMethodRepository heatingMethodRepository;
 
-    public List<ListDto> getAllHeatingMethodsList() {
+    public List<KeyValueDto> getAllHeatingMethodsList() {
         return heatingMethodRepository.findAll()
                 .stream()
-                .map(ListDto::new)
+                .map(KeyValueDto::new)
                 .toList();
     }
 }

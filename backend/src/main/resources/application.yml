@@ -21,55 +21,11 @@ spring:
 # Custom properties
 app:
   security:
+    in-app-token:
+      duration: 1
     jwt:
       secret-key: 5fbea5ec7f0625a059be825d829b533487aeeafe45b974d0d88b9a17ba33117e
       token:
         expiration: 86400000
     filter:
       header: "Bearer "
-  messages:
-    validation:
-      user:
-        username:
-          not-blank: Please provide a username.
-          size: Username must be between 8 and 100 characters long.
-        password:
-          not-blank: Please provide a password.
-          size: Password must be between 8 and 100 characters long.
-          invalid: Password must be at least 8 characters long, contain at least 1 uppercase letter, 1 number, and 1 special character (@#$!).
-        email:
-          invalid: Please provide a valid email in this format test@example.com.
-        phone:
-          not-blank: Please provide a phone number.
-          size: Please provide a valid 10-digit phone.
-      property:
-        title:
-          not-blank: Please provide a title.
-          size: Title must be 500 characters maximum.
-        description:
-          size: Property description must not exceed 4000 characters.
-        price:
-          not-null: Please provide a price for the property.
-        type:
-          not-null: Please provide a property type.
-        author:
-          not-null: Please provide the author of the listing.
-        agent:
-          not-null: Please provide the agent that manages the property.
-        attributes:
-          not-null: Please provide some information about the property.
-      notification:
-        subject:
-          not-null: Please provide a notification subject.
-        body:
-          not-blank: Please provide a notification body.
-        users:
-          not-null: Please provide a list of users that will receive the notifications.
-      testimonial:
-        text:
-          size: Text must be 500 characters maximum.
-        rating:
-          size: Rating must be between 0 and 5.
-          not-null: Please provide a rating.
-        author:
-          not-null: Please provide an author.
