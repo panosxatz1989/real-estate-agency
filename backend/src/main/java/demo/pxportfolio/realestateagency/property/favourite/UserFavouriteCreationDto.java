@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class UserFavouriteRequestDto {
+public class UserFavouriteCreationDto {
 
     private Long propertyId;
     private Boolean shouldNotify;

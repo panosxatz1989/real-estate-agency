@@ -20,7 +20,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('user:view', 'user:view')")
+    @PreAuthorize("hasAnyAuthority('user:view')")
     public UserDto getUserById(@PathVariable Long id) {
         return userService.getUserDtoById(id);
     }

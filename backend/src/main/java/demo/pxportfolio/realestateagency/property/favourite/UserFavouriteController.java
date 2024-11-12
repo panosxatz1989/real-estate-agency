@@ -26,7 +26,7 @@ public class UserFavouriteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<UserFavourite> addToFavourites(@PathVariable Long userId, @RequestBody UserFavouriteRequestDto dto) {
+    public ResponseEntity<UserFavourite> addToFavourites(@PathVariable Long userId, @RequestBody UserFavouriteCreationDto dto) {
         // TODO - Return response entity
         // return userFavouriteService.addToFavourites(userId, dto);
         return null;

@@ -2,7 +2,6 @@ package demo.pxportfolio.realestateagency.testimonial;
 
 import jakarta.validation.Valid;
 import java.net.URI;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,7 +33,7 @@ public class TestimonialController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasAuthority('user:testimonial:create')")
+    @PreAuthorize("hasAuthority('testimonial:create')")
     public ResponseEntity<Testimonial> createTestimonial(@Valid @RequestBody TestimonialCreationDto dto) {
         Testimonial createdTestimonial = testimonialService.createTestimonial(dto);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()

@@ -35,7 +35,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
                         columnNames = "user_id, property_id"
                 )
         }
-
 )
 @NoArgsConstructor
 @AllArgsConstructor
