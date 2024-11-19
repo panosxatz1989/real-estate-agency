@@ -13,6 +13,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +22,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
@@ -76,7 +78,12 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role.getPermissions();
+        List<SimpleGrantedAuthority> authorities = role.getPermissions()
+                .stream()
+                .map(p -> new SimpleGrantedAuthority(p.getAuthority()))
+                .toList();
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + this.role.getMachineName().toUpperCase()));
+        return authorities;
     }
 
     @Override

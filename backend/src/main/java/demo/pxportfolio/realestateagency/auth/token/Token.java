@@ -3,6 +3,8 @@ package demo.pxportfolio.realestateagency.auth.token;
 import demo.pxportfolio.realestateagency.auth.user.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -43,6 +45,9 @@ public class Token implements Serializable {
     )
     private User user;
 
+    @Enumerated(EnumType.STRING)
+    private TokenType tokenType;
+
     @Column(name = "token")
     private String token;
 
@@ -51,6 +56,12 @@ public class Token implements Serializable {
 
     @Column(name = "token_expiration")
     private LocalDateTime tokenExpiration;
+
+    @Column(name = "is_valid")
+    private Boolean isValid;
+
+    @Column(name = "is_revoked")
+    private Boolean isRevoked;
 
     @Override
     public boolean equals(Object o) {

@@ -22,6 +22,7 @@ public class SecurityConfig {
 
     private final AuthenticationProvider authenticationProvider;
     private final JwtFilter jwtFilter;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -29,9 +30,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         req -> req.requestMatchers(HttpMethod.POST, "/v1/users")
-                                .authenticated()
+                                .hasRole("ROLE_ADMIN")
                                 .requestMatchers(HttpMethod.GET, "/v1/users/*")
-                                .permitAll()
+                                .hasAnyRole("ROLE_ADMIN", "ROLE_AGENT", "ROLE_USER")
                                 .anyRequest()
                                 .permitAll()
                 )

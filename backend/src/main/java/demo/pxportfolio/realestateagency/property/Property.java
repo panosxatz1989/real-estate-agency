@@ -1,12 +1,10 @@
 package demo.pxportfolio.realestateagency.property;
 
 import demo.pxportfolio.realestateagency.auth.user.User;
+import demo.pxportfolio.realestateagency.geodata.location.Location;
 import demo.pxportfolio.realestateagency.misc.agents.Agent;
 import demo.pxportfolio.realestateagency.misc.attachment.Attachment;
-import demo.pxportfolio.realestateagency.geodata.location.Location;
 import demo.pxportfolio.realestateagency.property.attribute.property.PropertyAttribute;
-import demo.pxportfolio.realestateagency.property.floor.Floor;
-import demo.pxportfolio.realestateagency.property.heating.HeatingMethod;
 import demo.pxportfolio.realestateagency.property.inquiry.Inquiry;
 import demo.pxportfolio.realestateagency.property.type.PropertyType;
 import demo.pxportfolio.realestateagency.property.view.PropertyView;
@@ -64,48 +62,6 @@ public class Property implements Serializable {
 
     @Column(name = "area", nullable = false, precision = 6, scale = 2)
     private BigDecimal area;
-
-    @ManyToOne
-    @JoinColumn(
-            name = "floor_id",
-            foreignKey = @ForeignKey(
-                    name = "properties_to_floors_fk"
-            )
-    )
-    private Floor floor;
-
-    @ManyToMany
-    @JoinTable(
-            name = "properties_heating_methods",
-            joinColumns = @JoinColumn(
-                    name = "property_id",
-                    foreignKey = @ForeignKey(
-                            name = "properties_heating_methods_to_properties_fk"
-                    )
-
-            ),
-            inverseJoinColumns = @JoinColumn(
-                    name = "heating_method_id",
-                    foreignKey = @ForeignKey(
-                            name = "properties_heating_methods_to_heating_methods_fk"
-                    )
-
-            )
-    )
-    @ToString.Exclude
-    private Set<HeatingMethod> heatingMethods;
-
-    @Column(name = "rooms")
-    private Integer rooms;
-
-    @Column(name = "year_of_construction")
-    private Integer yearOfConstruction;
-
-    @Column(name = "has_parking")
-    private Boolean hasParking;
-
-    @Column(name = "baths")
-    private Integer baths;
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)

@@ -3,6 +3,9 @@ package demo.pxportfolio.realestateagency.auth;
 import demo.pxportfolio.realestateagency.auth.jwt.JwtResponseDto;
 import demo.pxportfolio.realestateagency.auth.jwt.JwtService;
 import demo.pxportfolio.realestateagency.auth.role.RoleService;
+import demo.pxportfolio.realestateagency.auth.token.Token;
+import demo.pxportfolio.realestateagency.auth.token.TokenRepository;
+import demo.pxportfolio.realestateagency.auth.token.TokenType;
 import demo.pxportfolio.realestateagency.auth.user.User;
 import demo.pxportfolio.realestateagency.auth.user.UserRepository;
 import demo.pxportfolio.realestateagency.auth.user.UserService;
@@ -22,6 +25,7 @@ public class AuthService {
     private final UserRepository userRepository;
     private final RoleService roleService;
     private final JwtService jwtService;
+    private final TokenRepository tokenRepository;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
 
@@ -42,6 +46,17 @@ public class AuthService {
 
         // Generate its token
         String token = jwtService.generateToken(user);
+
+        // Save the token to the database
+        Token newToken = Token.builder()
+                .token(token)
+                .user(user)
+                .requestedAt(LocalDateTime.now())
+                .tokenType(TokenType.BEARER)
+                .isValid(true)
+                .isRevoked(false)
+                .build();
+        tokenRepository.save(newToken);
 
         // Return the response containing the token
         return JwtResponseDto.builder()

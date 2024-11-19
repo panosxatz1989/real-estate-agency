@@ -1,21 +1,15 @@
 package demo.pxportfolio.realestateagency.property.type;
 
 import demo.pxportfolio.realestateagency.misc.base.ListEntity;
-import demo.pxportfolio.realestateagency.property.attribute.Attribute;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,24 +39,6 @@ public class PropertyType implements Serializable, ListEntity {
 
     @Column(name = "type", length = 200, nullable = false)
     private String type;
-
-    @ManyToMany
-    @JoinTable(
-            name = "property_type_available_attributes",
-            joinColumns = @JoinColumn(
-                    name = "property_type_id",
-                    foreignKey = @ForeignKey(
-                            name = "property_types_available_attributes_to_property_types_fk"
-                    )
-            ),
-            inverseJoinColumns = @JoinColumn(
-                    name = "attribute_id",
-                    foreignKey = @ForeignKey(
-                            name = "property_types_available_attributes_to_attributes_fk"
-                    )
-            )
-    )
-    private Set<Attribute> availableAttributes;
 
     @Override
     public Long getKey() {

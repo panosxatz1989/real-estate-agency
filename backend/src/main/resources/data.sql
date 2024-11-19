@@ -89,7 +89,9 @@ VALUES
     (2, 'Υπνοδωμάτια', 'bedrooms', NULL, FALSE),
     (3, 'Μέσα θέρμανσης', 'heating_methods', NULL, TRUE),
     (4, 'Εμβαδό', 'area', 'τμ', FALSE),
-    (5, 'Έτος Κατασκευής', 'constructed_at', NULL, FALSE);
+    (5, 'Έτος Κατασκευής', 'constructed_at', NULL, FALSE),
+    (6, 'Μπάνια', 'bathrooms', NULL, FALSE),
+    (7, 'Parking', NULL, TRUE);
 
 
 -- ****************************************************************** --
@@ -98,11 +100,12 @@ INSERT INTO
     attribute_possible_values (`id`, `attribute_id`, `possible_value`)
 VALUES
     (1, 1, '0'), (2, 1, '1'), (3, 1, '2'), (4, 1, '3'), (5, 1, '4'),
-    (6, 1, '5'), (7, 3, 'Καλοριφέρ'), (8, 3, 'Air Condition'), (9, 3, 'Τζάκι');
+    (6, 1, '5'), (7, 3, 'Καλοριφέρ'), (8, 3, 'Air Condition'), (9, 3, 'Τζάκι'),
+    (10, 7, 'Ναι'), (11, 7, 'Όχι');
 
 -- ****************************************************************** --
 
 INSERT INTO
-    property_type_available_attributes (`property_type_id`, `attribute_id`)
+    property_type_available_attributes (`id`, `property_type_id`, `attribute_id`, `show_in_preview`)
 VALUES
-    (1, 1), (1, 2), (1, 3), (1, 4), (3, 4), (4, 4);
+    (1, 1, 1, TRUE), (2, 1, 2, TRUE), (3, 1, 3, FALSE), (4, 1, 4, TRUE), (5, 3, 4, TRUE), (6, 4, 4, TRUE);
