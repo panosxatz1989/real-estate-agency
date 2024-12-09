@@ -30,6 +30,21 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler({
+            AttachmentCreationException.class
+    })
+    public ResponseEntity<ApiError> handleAttachmentCreationException(AttachmentCreationException ex) {
+        ApiError error = new ApiError(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                LocalDateTime.now(),
+                ErrorType.FILE_UPLOAD_ERROR,
+                ex.getLocalizedMessage(),
+                new ArrayList<>()
+        );
+
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler({
             MethodArgumentNotValidException.class
     })
     public ResponseEntity<ApiError> handleValidationException(MethodArgumentNotValidException ex) {

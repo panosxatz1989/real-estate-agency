@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,8 +22,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('user:view')")
-    public UserDto getUserById(@PathVariable Long id) {
+    @PreAuthorize("(hasAuthority('user:view') and #id == #user.getId()) or hasAuthority('ROLE_ADMIN')")
+    public UserDto getUserById(@PathVariable Long id, @AuthenticationPrincipal User user) {
         return userService.getUserDtoById(id);
     }
 

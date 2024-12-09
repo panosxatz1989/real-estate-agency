@@ -15,6 +15,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -81,7 +82,7 @@ public class User implements Serializable, UserDetails {
         List<SimpleGrantedAuthority> authorities = role.getPermissions()
                 .stream()
                 .map(p -> new SimpleGrantedAuthority(p.getAuthority()))
-                .toList();
+                .collect(Collectors.toList());
         authorities.add(new SimpleGrantedAuthority("ROLE_" + this.role.getMachineName().toUpperCase()));
         return authorities;
     }

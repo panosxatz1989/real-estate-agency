@@ -20,11 +20,6 @@ public class PropertyTypeController {
         return propertyTypeService.getAllPropertyTypes();
     }
 
-    @GetMapping("/list")
-    public List<KeyValueDto> getAllPropertyTypesList() {
-        return propertyTypeService.getAllPropertyTypesList();
-    }
-
     @GetMapping("/{id}")
     public PropertyType getPropertyTypeById(@PathVariable Long id) {
         return propertyTypeService.getPropertyTypeById(id);

@@ -4,7 +4,11 @@ import demo.pxportfolio.realestateagency.auth.role.Role;
 import demo.pxportfolio.realestateagency.auth.role.RoleDto;
 import demo.pxportfolio.realestateagency.auth.user.User;
 import demo.pxportfolio.realestateagency.auth.user.UserDto;
+import demo.pxportfolio.realestateagency.geodata.city.City;
+import demo.pxportfolio.realestateagency.geodata.city.CityDto;
+import demo.pxportfolio.realestateagency.geodata.region.RegionDto;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +21,17 @@ public class ModelMapperConfiguration {
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
+
+//        TypeMap<City, RegionDto> cityMapper = modelMapper.createTypeMap(City.class, RegionDto.class);
+//        cityMapper.addMappings(
+//                mapper -> mapper.map(
+//                        src -> src.getRegion().getId(), RegionDto::setId
+//                )
+//        );
+
+//        modelMapper.typeMap(City.class, CityDto.class).addMappings(mapper ->
+//                mapper.map(City::getRegion, CityDto::setRegion)
+//        );
 
 //        // Set matching strategy to STRICT for better accuracy in nested object mappings
 //        modelMapper.getConfiguration()

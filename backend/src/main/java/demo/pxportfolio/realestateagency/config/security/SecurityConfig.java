@@ -30,9 +30,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         req -> req.requestMatchers(HttpMethod.POST, "/v1/users")
-                                .hasRole("ROLE_ADMIN")
-                                .requestMatchers(HttpMethod.GET, "/v1/users/*")
-                                .hasAnyRole("ROLE_ADMIN", "ROLE_AGENT", "ROLE_USER")
+                                .hasAuthority("ROLE_ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/v1/users/**")
+                                .hasAnyAuthority("ROLE_ADMIN", "ROLE_AGENT", "ROLE_USER")
                                 .anyRequest()
                                 .permitAll()
                 )

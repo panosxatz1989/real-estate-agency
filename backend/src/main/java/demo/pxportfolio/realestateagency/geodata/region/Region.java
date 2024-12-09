@@ -4,6 +4,7 @@ import demo.pxportfolio.realestateagency.misc.base.ListEntity;
 import demo.pxportfolio.realestateagency.geodata.city.City;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -45,7 +46,7 @@ public class Region implements Serializable, ListEntity {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @OneToMany(mappedBy = "region")
+    @OneToMany(mappedBy = "region", fetch = FetchType.LAZY)
     private Set<City> cities;
 
     @Override

@@ -1,7 +1,7 @@
 -- ****************************************************************** --
 
 INSERT INTO
-    permissions (`id`, `role`, `resource`, `action`)
+    permissions (`id`, `resource`, `action`)
 VALUES
 
     (1, 'User', 'View'), (2, 'User', 'Create'), (3, 'User', 'Delete'), (4, 'User', 'Update'),
@@ -25,7 +25,7 @@ INSERT INTO
 VALUES
     (1, 1), (1, 2), (1, 3), (1, 4), (1, 5),
     (2, 2), (3, 2), (3, 3), (3, 4), (3, 5),
-    (4, 2);
+    (4, 2), (4, 1);
 
 -- ****************************************************************** --
 
@@ -37,17 +37,17 @@ VALUES
 
 -- ****************************************************************** --
 
-INSERT INTO
-    floors (`id`, `number`, `name`)
-VALUES
-    (1, -2, 'Ημιυπόγειο'),
-    (2, -1, 'Ισόγειο'),
-    (3, 0, 'Ημιόροφος'),
-    (4, 1, '1ος Όροφος'),
-    (5, 2, '2ος Όροφος'),
-    (6, 3, '3ος Όροφος'),
-    (7, 4, '4ος Όροφος'),
-    (8, 5, '5ος Όροφος');
+--INSERT INTO
+--    floors (`id`, `number`, `name`)
+--VALUES
+--    (1, -2, 'Ημιυπόγειο'),
+--    (2, -1, 'Ισόγειο'),
+--    (3, 0, 'Ημιόροφος'),
+--    (4, 1, '1ος Όροφος'),
+--    (5, 2, '2ος Όροφος'),
+--    (6, 3, '3ος Όροφος'),
+--    (7, 4, '4ος Όροφος'),
+--    (8, 5, '5ος Όροφος');
 
 -- ****************************************************************** --
 
@@ -91,7 +91,7 @@ VALUES
     (4, 'Εμβαδό', 'area', 'τμ', FALSE),
     (5, 'Έτος Κατασκευής', 'constructed_at', NULL, FALSE),
     (6, 'Μπάνια', 'bathrooms', NULL, FALSE),
-    (7, 'Parking', NULL, TRUE);
+    (7, 'Parking', 'parking', NULL, TRUE);
 
 
 -- ****************************************************************** --
@@ -109,3 +109,11 @@ INSERT INTO
     property_type_available_attributes (`id`, `property_type_id`, `attribute_id`, `show_in_preview`)
 VALUES
     (1, 1, 1, TRUE), (2, 1, 2, TRUE), (3, 1, 3, FALSE), (4, 1, 4, TRUE), (5, 3, 4, TRUE), (6, 4, 4, TRUE);
+
+-- ****************************************************************** --
+
+INSERT INTO
+    `users` (`active`, `id`, `role_id`, `phone`, `email`, `username`, `password`)
+VALUES
+    (TRUE, 1, 4, '6972012873', 'panosmonma@gmail.com', 'panosxatz1989', '$2a$10$LoPDvN3IAecFX/MRTqLOvOPwRiTI8DTBC6iYW50haeTHmwKf7EhKy'),
+    (TRUE, 2, 1, '6972012873', 'panosmonma@gmail.gr', 'panosxatz', '$2a$10$LoPDvN3IAecFX/MRTqLOvOPwRiTI8DTBC6iYW50haeTHmwKf7EhKy');

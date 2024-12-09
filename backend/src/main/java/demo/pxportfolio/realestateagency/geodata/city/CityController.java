@@ -16,7 +16,7 @@ public class CityController {
     private final CityService cityService;
 
     @GetMapping
-    public List<City> searchCity(@RequestParam String title) {
+    public List<CityDto> searchCity(@RequestParam String title) {
         return cityService.searchCity(title);
     }
 

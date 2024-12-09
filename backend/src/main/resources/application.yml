@@ -3,12 +3,20 @@ server:
   servlet:
     context-path: /api
 spring:
+  servlet:
+    multipart:
+      location: D:/User Data/portfolio/real-estate-agency/backend/uploads
+      max-file-size: 5MB
+      max-request-size: 50MB
   datasource:
     url: jdbc:mysql://localhost:3306/real_estate_agency?useSSL=false
     # driver-class-name: org.mysql.Driver
     username: root
     password:
   jpa:
+    properties:
+      hibernate:
+        format_sql: true
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: create-drop

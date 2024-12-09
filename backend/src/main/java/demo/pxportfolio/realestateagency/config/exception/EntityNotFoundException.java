@@ -1,6 +1,6 @@
 package demo.pxportfolio.realestateagency.config.exception;
 
-public class EntityNotFoundException extends RuntimeException{
+public class EntityNotFoundException extends RuntimeException {
 
     public EntityNotFoundException(String clazz, String property, String value) {
         super(clazz + " with " + property + ": " + value + " not found.");
