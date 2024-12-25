@@ -15,6 +15,7 @@ public class AttachmentDto {
 
     private Long id;
     private String contentType;
+    private String extension;
     private String path;
     private String originalFilename;
     private String filename;

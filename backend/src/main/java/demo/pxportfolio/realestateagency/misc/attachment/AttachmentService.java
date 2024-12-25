@@ -3,6 +3,7 @@ package demo.pxportfolio.realestateagency.misc.attachment;
 import demo.pxportfolio.realestateagency.auth.user.User;
 import demo.pxportfolio.realestateagency.config.exception.AttachmentCreationException;
 import demo.pxportfolio.realestateagency.config.exception.EntityNotFoundException;
+import demo.pxportfolio.realestateagency.config.exception.FileExtensionNotAllowedException;
 import demo.pxportfolio.realestateagency.misc.util.FileUtil;
 import java.io.File;
 import java.io.IOException;
@@ -44,12 +45,15 @@ public class AttachmentService {
         // Create the file and save it to file system
         String originalFileName = file.getOriginalFilename();
         String fileName = UUID.randomUUID().toString();
+        String extension = fileUtil.getFileExtension(originalFileName);
+
+        // Check for allowed extensions
+        if (!FileUtil.ALLOWED_EXTENSIONS.contains(extension)) {
+            throw new FileExtensionNotAllowedException("Extension " + extension + " not allowed.");
+        }
 
         // Path here
-        String path = fileUtil.createPath(uploadedAt, originalFileName, fileName);
-//
-//        String path = String.join("/", BASE_PATH, year, month, day, fileName);
-//        path += "." + fileUtil.getFileExtension(originalFileName);
+        String path = fileUtil.createPath(uploadedAt, originalFileName, fileName, extension);
 
         File newFile = new File(path);
         try {
@@ -76,6 +80,7 @@ public class AttachmentService {
         Attachment attachment = Attachment.builder()
                 .path(path)
                 .contentType(contentType)
+                .extension(extension)
                 .filename(fileName)
                 .originalFilename(originalFileName)
                 .fileSize(fileSize)

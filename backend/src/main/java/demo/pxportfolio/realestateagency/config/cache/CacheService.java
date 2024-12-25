@@ -1,5 +1,6 @@
 package demo.pxportfolio.realestateagency.config.cache;
 
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
@@ -12,13 +13,11 @@ public class CacheService {
 
     public void evictCache(String cacheName) {
         if (cacheManager.getCache(cacheName) != null) {
-            cacheManager.getCache(cacheName).clear();
+            Objects.requireNonNull(cacheManager.getCache(cacheName)).clear();
         }
     }
 
     public void clearCache() {
-        cacheManager.getCacheNames().forEach(cacheName -> {
-            cacheManager.getCache(cacheName).clear();
-        });
+        cacheManager.getCacheNames().forEach(cacheName -> Objects.requireNonNull(cacheManager.getCache(cacheName)).clear());
     }
 }

@@ -50,6 +50,8 @@ public class JwtFilter extends OncePerRequestFilter {
         // Check if we already have a security context updated
         if (Objects.nonNull(username) && Objects.isNull(SecurityContextHolder.getContext().getAuthentication())) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+
+            // TODO - Must implement refresh token functionality
             if (jwtService.isTokenValid(jwtToken, userDetails)) {
                 // Update the security context
                 UsernamePasswordAuthenticationToken authToken =

@@ -33,4 +33,10 @@ public class RoleService {
                 .orElseThrow(() ->
                         new EntityNotFoundException(ENTITY_CLASS, id.toString()));
     }
+
+    public Role getRoleByMachineName(String machineName) {
+        return roleRepository.findByMachineName(machineName)
+                .orElseThrow(() ->
+                        new EntityNotFoundException(ENTITY_CLASS, "machine name", machineName));
+    }
 }

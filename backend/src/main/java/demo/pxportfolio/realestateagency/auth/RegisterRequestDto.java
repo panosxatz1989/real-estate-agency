@@ -30,6 +30,4 @@ public class RegisterRequestDto {
     @NotBlank(message = "{validation.user.phone.not-blank}")
     @Size(min = 10, max = 10, message = "{validation.user.phone.size}")
     private String phone;
-
-    private Long roleId;
 }

@@ -48,6 +48,9 @@ public class Attachment implements Serializable {
     @Column(name = "content_type", length = 50, nullable = false)
     private String contentType;
 
+    @Column(name = "extension", length = 10, nullable = false)
+    private String extension;
+
     @Column(name = "path", length = 500, nullable = false)
     private String path;
 

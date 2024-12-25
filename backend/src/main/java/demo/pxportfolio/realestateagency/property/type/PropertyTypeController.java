@@ -16,7 +16,7 @@ public class PropertyTypeController {
     private final PropertyTypeService propertyTypeService;
 
     @GetMapping
-    public List<PropertyType> getAllPropertyTypes() {
+    public List<PropertyTypeDto> getAllPropertyTypes() {
         return propertyTypeService.getAllPropertyTypes();
     }
 

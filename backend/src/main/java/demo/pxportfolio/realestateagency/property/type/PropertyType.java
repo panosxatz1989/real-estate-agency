@@ -1,6 +1,5 @@
 package demo.pxportfolio.realestateagency.property.type;
 
-import demo.pxportfolio.realestateagency.misc.base.ListEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,7 +30,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class PropertyType implements Serializable, ListEntity {
+public class PropertyType implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,16 +38,6 @@ public class PropertyType implements Serializable, ListEntity {
 
     @Column(name = "type", length = 200, nullable = false)
     private String type;
-
-    @Override
-    public Long getKey() {
-        return this.id;
-    }
-
-    @Override
-    public String getValue() {
-        return this.type;
-    }
 
     @Override
     public boolean equals(Object o) {
